@@ -16,6 +16,7 @@ class CreateRessourcesTable extends Migration
         Schema::create('ressources', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('content');
             $table->integer('count_view');
             $table->unsignedBigInteger('zone_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
