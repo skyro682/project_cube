@@ -24,10 +24,10 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    (Re)sources Relationnelles
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -40,13 +40,13 @@
                             <a class="nav-link" href="">Jeux</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Ajouter une ressource</a>   <!-- si connecté -->
+                            <a class="nav-link" href="">Ajouter une ressource</a> <!-- si connecté -->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Statistiques</a>            <!-- admin ou plus-->
+                            <a class="nav-link" href="">Statistiques</a> <!-- admin ou plus-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Gestion des utilisateurs</a>  <!-- si super_admin -->
+                            <a class="nav-link" href="">Gestion des utilisateurs</a> <!-- si super_admin -->
                         </li>
                     </ul>
 
@@ -87,6 +87,14 @@
                 </div>
             </div>
         </nav>
+
+        <!-- Page Header -->
+<div class="card bg-dark text-white">
+  <img src="{{ asset('img/msa.png') }}" class="card-img" alt="...">
+  <div class="card-img-overlay">
+    
+  </div>
+</div>
 
         <main class="py-4">
             @yield('content')
