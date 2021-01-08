@@ -89,12 +89,9 @@
         </nav>
 
         <!-- Page Header -->
-<div class="card bg-dark text-white">
-  <img src="{{ asset('img/msa.png') }}" class="card-img" alt="...">
-  <div class="card-img-overlay">
-    
-  </div>
-</div>
+        <div class="w-100 d-flex justify-content-center bg-light border-bottom">
+            <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
+        </div>
 
         <main class="py-4">
             @yield('content')
