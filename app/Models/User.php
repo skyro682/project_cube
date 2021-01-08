@@ -11,15 +11,24 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'username',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'address',
+        'city',
+        'cp_code',
     ];
 
     /**
@@ -40,4 +49,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Ressources(){
+        return $this->hasMany(Ressources::class);
+    }
+
+    public function Comments(){
+        return $this->hasMany(Comments::class);
+    }
+
+    public function Grade(){
+        return $this->belongsTo(Grade::class);
+    }
 }
