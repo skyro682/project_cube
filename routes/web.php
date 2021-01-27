@@ -25,6 +25,8 @@ Route::middleware('admin.super')->group(function(){
     Route::prefix('users')->name('users.')->group(function(){
 
         Route::get('/', [App\Http\Controllers\UsersController::class, 'list'])->name('home');
+        Route::post('/grade', [App\Http\Controllers\UsersController::class, 'editGrade'])->name('grade');
+        Route::get('/delete/{id}', [App\Http\Controllers\UsersController::class, 'deleteUser'])->name('delete');
     
     });
 });

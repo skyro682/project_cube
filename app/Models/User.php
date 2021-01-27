@@ -29,6 +29,7 @@ class User extends Authenticatable
         'address',
         'city',
         'cp_code',
+        'grade_id',
     ];
 
     /**
