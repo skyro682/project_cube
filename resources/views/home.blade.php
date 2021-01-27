@@ -24,7 +24,7 @@
         <div class="text-center  mt-4">
             @auth
             @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-            <a href="{{ route('updateRes', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteResModal" >supprimer</a>
+            <a href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteResModal" >supprimer</a>
             
             <div class="modal fade" id="deleteResModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -32,7 +32,7 @@
                         <div class="modal-body d-flex">
                             <p class="mb-0">Etes vous sûr de vouloir supprimer cette ressource ?</p>
                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Annuler</button>
-                            <button onclick="location.href='{{ route('deleteRessource', ['id' => $ressource->id]) }}'" class="btn btn-danger btn-sm ml-1 py-auto">Supprimer</button>
+                            <button onclick="location.href='{{ route('ressources.delete', ['id' => $ressource->id]) }}'" class="btn btn-danger btn-sm ml-1 py-auto">Supprimer</button>
                         </div>
                     </div>
                 </div>

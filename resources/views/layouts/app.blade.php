@@ -40,7 +40,7 @@
                             <a class="nav-link" href="">Jeux</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('addRes')}}">Ajouter une ressource</a> <!-- si connecté -->
+                            <a class="nav-link" href="{{route('ressources.add')}}">Ajouter une ressource</a> <!-- si connecté -->
                         </li>
                         @auth
                             @if ( Auth::user()->isAdmin())

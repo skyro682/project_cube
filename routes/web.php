@@ -13,32 +13,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route public
 Auth::routes();
-
 Route::get('/', [App\Http\Controllers\RessourcesController::class, 'listAll'])->name('home');
-//add ressource
-Route::get('/delete/{id}', [App\Http\Controllers\RessourcesController::class, 'deleteRessource'])->name('deleteRessource');
-Route::get('/addRessource', [App\Http\Controllers\RessourcesController::class, 'addRes'])->name('addRes');
-Route::Post('/addResClick', [App\Http\Controllers\RessourcesController::class, 'addResClick'])->name('addResClick');
-Route::get('/updateRes/{id}', [App\Http\Controllers\RessourcesController::class, 'updateRes'])->name('updateRes');
-Route::Post('/updateResClick/{id}', [App\Http\Controllers\RessourcesController::class, 'updateResClick'])->name('updateResClick');
-//view ressource
 Route::get('/ressource/{id}', [App\Http\Controllers\RessourcesController::class, 'viewRes'])->name('viewRes');
 
-//Route profile
-Route::get('/profile', [App\Http\Controllers\UsersController::class, 'profile'])->name('profile');
-Route::post('/profile/edit/{section}', [App\Http\Controllers\UsersController::class, 'editProfile'])->name('editProfile');
-Route::get('/profile/delete', [App\Http\Controllers\UsersController::class, 'deleteProfile'])->name('deleteProfile');
+// Route Utilisateur Connecter
+Route::middleware('auth')->group(function(){
 
-// Route admin
-Route::middleware('admin.super')->group(function(){
+    // Route ressource
+    Route::prefix('ressources')->name('ressources.')->group(function(){
+        
+        Route::get('/delete/{id}', [App\Http\Controllers\RessourcesController::class, 'deleteRessource'])->name('delete');
+        Route::get('/add', [App\Http\Controllers\RessourcesController::class, 'addRes'])->name('add');
+        Route::Post('/add', [App\Http\Controllers\RessourcesController::class, 'addResClick']);
+        Route::get('/update/{id}', [App\Http\Controllers\RessourcesController::class, 'updateRes'])->name('update');
+        Route::Post('/update/{id}', [App\Http\Controllers\RessourcesController::class, 'updateResClick']);
 
-    // Route gestion users
-    Route::prefix('users')->name('users.')->group(function(){
-
-        Route::get('/', [App\Http\Controllers\UsersController::class, 'list'])->name('home');
-        Route::post('/grade', [App\Http\Controllers\UsersController::class, 'editGrade'])->name('grade');
-        Route::get('/delete/{id}', [App\Http\Controllers\UsersController::class, 'deleteUser'])->name('delete');
-    
     });
+
+    // Route profile
+    Route::prefix('profile')->group(function(){
+
+        Route::get('/', [App\Http\Controllers\UsersController::class, 'profile'])->name('profile');
+        Route::post('/edit/{section}', [App\Http\Controllers\UsersController::class, 'editProfile'])->name('editProfile');
+        Route::get('/delete', [App\Http\Controllers\UsersController::class, 'deleteProfile'])->name('deleteProfile');
+
+    });
+
+    // Route Super Admin
+    Route::middleware('admin.super')->group(function(){
+
+        // Route gestion users
+        Route::prefix('users')->name('users.')->group(function(){
+
+            Route::get('/', [App\Http\Controllers\UsersController::class, 'list'])->name('home');
+            Route::post('/grade', [App\Http\Controllers\UsersController::class, 'editGrade'])->name('grade');
+            Route::get('/delete/{id}', [App\Http\Controllers\UsersController::class, 'deleteUser'])->name('delete');
+        
+        });
+    });
+
 });
