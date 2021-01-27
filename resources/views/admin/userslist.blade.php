@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container col-8">
+<div class="container col-10">
     
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">
@@ -14,6 +14,7 @@
                 <th scope="col">email</th>
                 <th scope="col">addresse</th>
                 <th scope="col">city</th>
+                <th scope="col">cp_code</th>
                 <th scope="col">grade</th>
                 <th scope="col">created at</th>
                 <th></th>
@@ -32,6 +33,7 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->addresse }}</td>
                     <td>{{ $user->city }}</td>
+                    <td>{{ $user->cp_code }}</td>
                     <td>
                         <div class="d-flex">
                             <select class="custom-select custom-select-sm" name="userGrade" form="changeGrade">
