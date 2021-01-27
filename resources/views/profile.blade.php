@@ -4,7 +4,7 @@
     
     <div class="container">
 
-        <h1>Mon Profile</h1>
+        <h1>Mon Profil</h1>
 
         <form action="{{ Route('editProfile', ['section' => 'email']) }}" method="POST" class="mt-5">
             @csrf
@@ -76,18 +76,20 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Grade</label>
-                <div class="col-sm-9">
-                    <input type="text" value="{{ $user->grade->name }}" class="form-control" readonly>
-                </div>
-            </div>
-
             <div class="form-group d-flex justify-content-end">
                 <button type="submit" class="btn btn-sm btn-outline-success">Sauvegarder</button>
             </div>
 
         </form>
+
+        <div class="dropdown-divider my-5"></div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Grade</label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ $user->grade->name }}" class="form-control" readonly>
+            </div>
+        </div>
 
         <div class="dropdown-divider my-5"></div>
 

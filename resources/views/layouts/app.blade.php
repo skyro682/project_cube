@@ -76,7 +76,7 @@
                                 </a>
 
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ Route('profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ Route('profile') }}">Profil</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
