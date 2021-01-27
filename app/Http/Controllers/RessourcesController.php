@@ -17,6 +17,7 @@ class RessourcesController extends Controller
         return view('home', ['ressources' => $ressources]);
     }
 
+    //----------------------------------------------------------------------------------
     public function addRes() // affiche page new ressource
     {
         $zones = Zone::orderBy('id', 'ASC')->get();
@@ -84,10 +85,12 @@ class RessourcesController extends Controller
         return redirect('/');
     }
 
-    public function listRessource($id)
-    {
+    //----------------------------------------------------------------------------------
 
-        //$post = Posts::with('users', 'comments', 'comments.users')->find($id);
-        //return view('post', ['post' => $post]);
+    public function viewRes($id)
+    {
+        $ressource = Ressources::with(['Users', 'Category', 'Zone'])->find($id);
+        return view('ressource', ['ressource' => $ressource]);
     }
+
 }
