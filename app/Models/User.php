@@ -54,6 +54,10 @@ class User extends Authenticatable
         return ($this->grade_id == 4 || $this->grade_id == 3);
     }
 
+    public function isSuperAdmin(){
+        return ($this->grade_id == 4);
+    }
+
     public function Ressources(){
         return $this->hasMany(Ressources::class);
     }

@@ -46,7 +46,7 @@
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Statistiques</a>
-                                    <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
+                                    <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
                                 </ul>
                             </div>
                             @endif
