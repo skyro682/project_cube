@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             GradeSeeder::class,
             CategorySeeder::class,
+            ZoneSeeder::class,
         ]);
     }
 }
