@@ -2,7 +2,6 @@
 
 @section('content')
 
-@foreach ($ressources as $ressource)
 <div class="" id="">
     <div class="col-lg-4"> </div>
     <div class="container col-lg-4">
@@ -16,10 +15,14 @@
         <h6 class="text-center text-uppercase">écrit le : {{ $ressource->created_at }}</h6>
         <h6 class="text-center text-uppercase">Mise à jour le : {{ $ressource->updated_at }}</h6>
 
-        <!-- more Section-->
-        <div class="text-center mt-4">
-            <button type="button" class="btn btn-info" onclick="location.href='{{ route('viewRes', ['id' => $ressource->id]) }}'">Voir plus...</button>
+        <!-- Section Content-->
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 text-center">
+                <p class="lead"> {{ $ressource->content }} </p>
+            </div>
         </div>
+
         <!-- update or delete Section-->
         <div class="text-center  mt-4">
             @auth
@@ -41,23 +44,6 @@
             @endauth
         </div>
         <br>
-    </div>
-</div>
-<hr>
-@endforeach
-
-
-<!-- Onglet-->
-<div class="" id="">
-    <div class="col-lg-4"> </div>
-    <div class="container col-lg-4 text-center mt-4">
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4 text-center">
-                {{ $ressources->links() }}
-            </div>
-        </div>
-
     </div>
 </div>
 
