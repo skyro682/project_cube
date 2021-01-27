@@ -7,9 +7,9 @@
 <div class="page-section" id="1">
     <div class="col-lg-4"> </div>
     @if(!isset($ressource))
-    <form method="POST" action="{{ route('addResClick')}}" class="container col-lg-4">
+    <form method="POST" action="{{ route('ressources.add')}}" class="container col-lg-4">
         @else
-        <form method="POST" action="{{ route('updateResClick', ['id' => $ressource->id])}}" class="container col-lg-4">
+        <form method="POST" action="{{ route('ressources.update', ['id' => $ressource->id])}}" class="container col-lg-4">
             @endif
             @csrf
             <br>
@@ -28,7 +28,7 @@
                     <option value="{{ (isset($ressource)) ? $ressource->zone->id : '' }}">{{ (isset($ressource)) ? $ressource->zone->name : 'Choisir une option...' }}</option> 
                     @foreach ($zones as $zone)
 
-                    <option value="{{ $zone->id }}">{{ $zone->name }}</option>
+                        <option value="{{ $zone->id }}">{{ $zone->name }}</option>
 
                     @endforeach
                 </select>
@@ -42,7 +42,7 @@
                    <option value="{{ (isset($ressource)) ? $ressource->category->id : '' }}">{{ (isset($ressource)) ? $ressource->category->name : 'Choisir une option...' }}</option> 
                     @foreach ($categories as $category)
 
-                    <option value="{{ $zone->id  }}">{{ $category->name }}</option>
+                    <option value="{{ $category->id  }}">{{ $category->name }}</option>
 
                     @endforeach
                 </select>
