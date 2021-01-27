@@ -21,7 +21,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Route profile
+Route::get('/profile', [App\Http\Controllers\UsersController::class, 'profile'])->name('profile');
+Route::post('/profile/edit/{section}', [App\Http\Controllers\UsersController::class, 'editProfile'])->name('editProfile');
+Route::get('/profile/delete', [App\Http\Controllers\UsersController::class, 'deleteProfile'])->name('deleteProfile');
+
+// Route admin
 Route::middleware('admin.super')->group(function(){
+
+    // Route gestion users
     Route::prefix('users')->name('users.')->group(function(){
 
         Route::get('/', [App\Http\Controllers\UsersController::class, 'list'])->name('home');

@@ -18,7 +18,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    
+
 </head>
 
 <body>
@@ -76,6 +76,7 @@
                                 </a>
 
                                 <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ Route('profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -91,10 +92,22 @@
             </div>
         </nav>
 
+        @if (session('error'))
+            <div class="mx-auto alert alert-danger mb-0">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="mx-auto alert alert-success mb-0">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <!-- Page Header -->
         <div class="w-100 d-flex justify-content-center bg-light border-bottom">
             <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
-        </div>
+        </div>        
 
         <main class="py-4">
             @yield('content')
