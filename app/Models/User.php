@@ -50,6 +50,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin(){
+        return ($this->grade_id == 4 || $this->grade_id == 3);
+    }
+
     public function Ressources(){
         return $this->hasMany(Ressources::class);
     }
