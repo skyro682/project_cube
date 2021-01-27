@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\RessourcesController::class, 'listAll'])->name('home');
+Route::get('/addRessource', [App\Http\Controllers\RessourcesController::class, 'addRes'])->name('addRes');
+Route::Post('/addRessource', [App\Http\Controllers\RessourcesController::class, 'addResClick'])->name('addResClick');
+Route::Post('/updateResClick', [App\Http\Controllers\RessourcesController::class, 'updateResClick'])->name('updateResClick');
+

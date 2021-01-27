@@ -18,6 +18,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+
 </head>
 
 <body>
@@ -38,66 +39,66 @@
                             <a class="nav-link" href="">Jeux</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Ajouter une ressource</a> <!-- si connecté -->
+                            <a class="nav-link" href="{{route('addRes')}}">Ajouter une ressource</a> <!-- si connecté -->
                         </li>
                         @auth
-                            @if ( Auth::user()->isAdmin())
-                            <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Statistiques</a>
-                                    <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
-                                </ul>
-                            </div>
-                            @endif
-                        @endauth
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <div class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->username }}
-                                </a>
-
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </ul>
-                            </div>
-                        @endguest
+                        @if ( Auth::user()->isAdmin())
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Statistiques</a>
+                                <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
                     </ul>
                 </div>
+                @endif
+                @endauth
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
+                    <!-- Authentication Links -->
+                    @guest
+                    @if (Route::has('login'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    @endif
+
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                    @endif
+                    @else
+                    <div class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->username }}
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                </ul>
             </div>
-        </nav>
+            @endguest
+            </ul>
+    </div>
+    </div>
+    </nav>
 
-        <!-- Page Header -->
-        <div class="w-100 d-flex justify-content-center bg-light border-bottom">
-            <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
-        </div>
+    <!-- Page Header -->
+    <div class="w-100 d-flex justify-content-center bg-light border-bottom">
+        <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
+    </div>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+    <main class="py-4">
+        @yield('content')
+    </main>
     </div>
 
     <!-- Scripts -->
