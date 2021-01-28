@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ressources;
 use App\Models\Comments;
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\User;
 use App\Models\Zone;
 
@@ -91,11 +92,12 @@ class RessourcesController extends Controller
     // view de ressource.blade.php
     public function viewRes($id)
     {
+        $userId = Auth::user();
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
+        $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
-        //$ressource = Ressources::with(['Comments.Users' => function($q){ $q->orderBy('created_at', 'DESC');}])->find($id);
-        //dd($ressource);
-        return view('ressource', ['ressource' => $ressource, 'comments' => $comments]);
+
+        return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'favoris' => $favoris]);
     }
 
     //----------------------------------------------------------------------------------
@@ -129,10 +131,11 @@ class RessourcesController extends Controller
 
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
         $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
+        $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         $commentEdit = Comments::with('Users', 'Ressources', 'Ressources.Users')->find($id_com);
-        
+
         if ($commentEdit->users_id == $userId->id || $userId->grade_id > 1) {
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments,'edit' => 1, 'commentEdit' => $commentEdit]);
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'favoris' => $favoris, 'edit' => 1, 'commentEdit' => $commentEdit]);
         } else {
             return redirect(route('viewRes', ['id' => $id]));
         }
@@ -151,5 +154,23 @@ class RessourcesController extends Controller
         return redirect(route('viewRes', ['id' => $id]));
     }
     //----------------------------------------------------------------------------------
+    public function add_or_delete($id, $add)
+    {
+        $userId = Auth::user();
 
+        //dd($add, $id, $userId->id);
+        if ($add < 1) {
+            $favorite = Favorite::where([['ressources_id', $id], ['users_id', $userId->id]])->get();
+            if (count($favorite) < 1) {
+                $favorite = new Favorite;
+                $favorite->ressources_id = $id;
+                $favorite->users_id = $userId->id;
+                $favorite->save();
+            }
+        } else if ($add > 0) {
+            $favorite = Favorite::where([['ressources_id', $id], ['users_id', $userId->id]])->first();
+            $favorite->delete();
+        }
+        return redirect(route('viewRes', ['id' => $id]));
+    }
 }

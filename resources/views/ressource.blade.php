@@ -6,6 +6,19 @@
     <div class="col-lg-4"> </div>
     <div class="container col-lg-4">
         <br>
+        @auth
+        <!-- add favorite-->
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 text-center">
+                <i class="text-center bi {{(count($favoris) > 0) ? 'bi-star-fill' : 'bi-star' }}"> 
+                    <a href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris)]) }}">{{(count($favoris) > 0) ? 'Suprimer des favoris' : 'Ajouter au favoris' }}</a>    
+                </i>
+            </div>
+        </div>
+        <br>
+        @endauth
+
         <!-- Section Heading-->
         <h2 class="text-center text-uppercase">{{ $ressource->name }}</h2>
         <h5 class="text-center text-uppercase">{{ $ressource->Zone->name }}</h5>
@@ -75,7 +88,7 @@
                 </form>
                 <div class="float-left mt-2">
                     @if(isset($edit) && isset($commentEdit) && $edit == 1)
-                        <button type="submit" class="btn btn-info" onclick="location.href='{{route('viewRes', ['id' => $ressource->id]) }}'">Annuler</button>
+                    <button type="submit" class="btn btn-info" onclick="location.href='{{route('viewRes', ['id' => $ressource->id]) }}'">Annuler</button>
                     @endif
                 </div>
 
