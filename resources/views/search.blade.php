@@ -40,10 +40,12 @@
                         <br>
                         <label for="orderSelect">Affichage des posts</label>
                         <select class="form-control" id="orderSelect" name="order">
-                            <option value=0>Dernier créé d'abord</option>
-                            <option value=1>Premier créé d'abord</option>
-                            <option value=2>Premier modifié d'abord</option>
-                            <option value=3>Dernier modifié d'abord</option>
+                            <option value=0>Derniers créés d'abord</option>
+                            <option value=1>Premiers créés d'abord</option>
+                            <option value=2>Premiers modifiés d'abord</option>
+                            <option value=3>Derniers modifiés d'abord</option>
+                            <option value=2>Les plus vus d'abord</option>
+                            <option value=3>Les moins vus d'abord</option>
                         </select>
                         <br>
                         <button type="submit" class="btn btn-primary">Rechercher</button>

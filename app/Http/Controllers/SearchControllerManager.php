@@ -58,6 +58,12 @@ class SearchControllerManager extends Controller
                 case 3:
                     $processing_query = $processing_query->orderBy('updated_at', 'asc');
                     break;
+                case 4:
+                    $processing_query = $processing_query->orderBy('count_view', 'asc');
+                    break;
+                case 5:
+                    $processing_query = $processing_query->orderBy('count_view', 'desc');
+                    break;
                 default:
                     $processing_query = $processing_query->orderBy('created_at', 'desc');
             }
