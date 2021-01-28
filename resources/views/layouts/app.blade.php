@@ -102,19 +102,6 @@
             <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
         </div>
 
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <form action="/search" method="get">
-                        <div class="form-group">
-                            <label for="query"></label>
-                            <input type="text" class="form-control" id="query" name="query"  placeholder="Rechercher un post">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <main class="py-4">
             @yield('content')
         </main>
