@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ressources;
+use App\Models\Comments;
 use App\Models\Category;
+use App\Models\User;
 use App\Models\Zone;
 
 use Illuminate\Support\Facades\Auth;
@@ -86,11 +88,68 @@ class RessourcesController extends Controller
     }
 
     //----------------------------------------------------------------------------------
-
+    // view de ressource.blade.php
     public function viewRes($id)
     {
-        $ressource = Ressources::with(['Users', 'Category', 'Zone'])->find($id);
-        return view('ressource', ['ressource' => $ressource]);
+        $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
+        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
+        //$ressource = Ressources::with(['Comments.Users' => function($q){ $q->orderBy('created_at', 'DESC');}])->find($id);
+        //dd($ressource);
+        return view('ressource', ['ressource' => $ressource, 'comments' => $comments]);
     }
+
+    //----------------------------------------------------------------------------------
+    // Comment
+    public function addComment($id)
+    {
+        $userId = Auth::user();
+        $comment = new Comments;
+        $comment->content = request('comment');
+        $comment->ressources_id = $id;
+        $comment->users_id = $userId->id;
+        $comment->save();
+
+        return redirect(route('viewRes', ['id' => $id]));
+    }
+
+    public function deleteComment($id, $id_com)
+    {
+        $userId = Auth::user();
+
+        $comment = Comments::find($id_com);
+        if ($comment->users_id == $userId->id || $userId->grade_id > 1) {
+            $comment->delete();
+        }
+        return redirect(route('viewRes', ['id' => $id]));
+    }
+
+    public function viewUpdateComment($id, $id_com)
+    {
+        $userId = Auth::user();
+
+        $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
+        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
+        $commentEdit = Comments::with('Users', 'Ressources', 'Ressources.Users')->find($id_com);
+        
+        if ($commentEdit->users_id == $userId->id || $userId->grade_id > 1) {
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments,'edit' => 1, 'commentEdit' => $commentEdit]);
+        } else {
+            return redirect(route('viewRes', ['id' => $id]));
+        }
+    }
+
+    public function updateComment($id, $id_com)
+    {
+        $userId = Auth::user();
+
+        $comment = Comments::find($id_com);
+        $ressource = Ressources::with('users', 'comments', 'comments.users')->find($id);
+        if ($comment->users_id == $userId->id || $userId->grade_id > 1) {
+            $comment->content = request('comment');
+            $comment->save();
+        }
+        return redirect(route('viewRes', ['id' => $id]));
+    }
+    //----------------------------------------------------------------------------------
 
 }

@@ -29,7 +29,12 @@ Route::middleware('auth')->group(function(){
         Route::Post('/add', [App\Http\Controllers\RessourcesController::class, 'addResClick']);
         Route::get('/update/{id}', [App\Http\Controllers\RessourcesController::class, 'updateRes'])->name('update');
         Route::Post('/update/{id}', [App\Http\Controllers\RessourcesController::class, 'updateResClick']);
-
+        // Comments ressource
+        Route::post('/addComment/{id}', [App\Http\Controllers\RessourcesController::class, 'addComment'])->name('addComment');
+        Route::get('/deleteComment/{id}/{id_com}', [App\Http\Controllers\RessourcesController::class, 'deleteComment'])->name('deleteComment');
+        Route::get('/viewUpdateComment/{id}/{id_com}', [App\Http\Controllers\RessourcesController::class, 'viewUpdateComment'])->name('viewUpdateComment');
+        Route::post('/updateComment/{id}/{id_com}', [App\Http\Controllers\RessourcesController::class, 'updateComment'])->name('updateComment');
+        
     });
 
     // Route profile

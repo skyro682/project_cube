@@ -22,6 +22,6 @@ class Comments extends Model
     }
 
     public function Users(){
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(User::class);
     }
 }
