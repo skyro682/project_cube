@@ -48,7 +48,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">Ordre</label>
                             </div>
-                            <select name="zone_id" class="custom-select" id="inputGroupSelect01">
+                            <select name="order" class="custom-select" id="inputGroupSelect01">
                                 <option value=0>{{ "Derniers créés d'abord" }}</option>
                                 <option value=1>{{ "Premiers créés d'abord" }}</option>
                                 <option value=2>{{ "Premiers modifiés d'abord" }}</option>
