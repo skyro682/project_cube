@@ -7,7 +7,7 @@ use App\Models\Zone;
 use Illuminate\Http\Request;
 use App\Models\Ressources;
 
-class SearchController extends SearchControllerManager
+class AdvancedSearchController extends SearchControllerManager
 {
     /**
      * Create a new controller instance.
@@ -26,6 +26,8 @@ class SearchController extends SearchControllerManager
      */
     public function searchRes()
     {
+        $categories = (new Category)->get();
+        $regions = (new Zone)->get();
         $query = '';
         if(isset($_GET['query']))
         {
@@ -54,8 +56,10 @@ class SearchController extends SearchControllerManager
 
         $tableResults = $this->queryMake($query, $contentQuery, $category, $region, $order);
 
-        return view('search',[
+        return view('advancedSearch',[
             'searchResults' => $tableResults,
+            'categoriesList' => $categories,
+            'regionsList' => $regions,
         ]);
     }
 }
