@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 // Route public
 Auth::routes();
 Route::get('/', [App\Http\Controllers\RessourcesController::class, 'listAll'])->name('home');
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'searchRes'])->name('search');
+Route::get('/advancedSearch', [App\Http\Controllers\AdvancedSearchController::class, 'searchRes'])->name('advancedSearch');
 Route::get('/ressource/{id}', [App\Http\Controllers\RessourcesController::class, 'viewRes'])->name('viewRes');
 
 // Route Utilisateur Connecter
@@ -23,7 +25,7 @@ Route::middleware('auth')->group(function(){
 
     // Route ressource
     Route::prefix('ressources')->name('ressources.')->group(function(){
-        
+
         Route::get('/delete/{id}', [App\Http\Controllers\RessourcesController::class, 'deleteRessource'])->name('delete');
         Route::get('/add', [App\Http\Controllers\RessourcesController::class, 'addRes'])->name('add');
         Route::Post('/add', [App\Http\Controllers\RessourcesController::class, 'addResClick']);
@@ -34,8 +36,15 @@ Route::middleware('auth')->group(function(){
         Route::get('/deleteComment/{id}/{id_com}', [App\Http\Controllers\RessourcesController::class, 'deleteComment'])->name('deleteComment');
         Route::get('/viewUpdateComment/{id}/{id_com}', [App\Http\Controllers\RessourcesController::class, 'viewUpdateComment'])->name('viewUpdateComment');
         Route::post('/updateComment/{id}/{id_com}', [App\Http\Controllers\RessourcesController::class, 'updateComment'])->name('updateComment');
-        
+
     });
+
+    //favorite.add_or_delete
+        // Route favorite // favorite
+        Route::prefix('favorite')->name('favorite.')->group(function(){
+            Route::get('/viewFavorite', [App\Http\Controllers\RessourcesController::class, 'viewFavorite'])->name('viewFavorite');
+            Route::get('/add_or_delete/{id}/{add}/{view}', [App\Http\Controllers\RessourcesController::class, 'add_or_delete'])->name('add_or_delete');
+        });
 
     // Route profile
     Route::prefix('profile')->group(function(){
@@ -55,7 +64,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/', [App\Http\Controllers\UsersController::class, 'list'])->name('home');
             Route::post('/grade', [App\Http\Controllers\UsersController::class, 'editGrade'])->name('grade');
             Route::get('/delete/{id}', [App\Http\Controllers\UsersController::class, 'deleteUser'])->name('delete');
-        
+
         });
     });
 

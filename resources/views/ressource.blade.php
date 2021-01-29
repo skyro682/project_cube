@@ -6,6 +6,17 @@
     <div class="col-lg-4"> </div>
     <div class="container col-lg-4">
         <br>
+        @auth
+        <!-- add favorite-->
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <i class="mr-2 {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> </i>
+                <a class="mt-1" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>    
+            </div>
+        </div>
+        <br>
+        @endauth
+
         <!-- Section Heading-->
         <h2 class="text-center text-uppercase">{{ $ressource->name }}</h2>
         <h5 class="text-center text-uppercase">{{ $ressource->Zone->name }}</h5>
@@ -27,7 +38,7 @@
         <div class="text-center  mt-4">
             @auth
             @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-            <a href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteResModal">supprimer</a>
+            <a class="text-secondary" href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" data-toggle="modal" data-target="#deleteResModal">supprimer</a>
 
             <div class="modal fade" id="deleteResModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -75,7 +86,7 @@
                 </form>
                 <div class="float-left mt-2">
                     @if(isset($edit) && isset($commentEdit) && $edit == 1)
-                        <button type="submit" class="btn btn-info" onclick="location.href='{{route('viewRes', ['id' => $ressource->id]) }}'">Annuler</button>
+                    <button type="submit" class="btn btn-info" onclick="location.href='{{route('viewRes', ['id' => $ressource->id]) }}'">Annuler</button>
                     @endif
                 </div>
 

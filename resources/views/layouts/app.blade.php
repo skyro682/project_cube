@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 
 <head>
     <meta charset="utf-8">
@@ -20,9 +20,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
 
+
 </head>
 
-<body>
+<body class="position-relative" style="min-height: 100%;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" id="mainNav">
             <div class="container">
@@ -34,6 +35,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -44,19 +46,24 @@
                         </li>
                         @auth
                             @if ( Auth::user()->isAdmin())
-                            <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Statistiques</a>
-                                    <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
-                                </ul>
-                            </div>
+                                <div class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Statistiques</a>
+                                        <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
+                                    <div class="dropdown-menu">
+                                </div> 
                             @endif
                         @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
+                        <li class="nav-item mr-3 my-auto">
+                            <form action="{{ Route('search') }}">
+                                <input type="text" class="form-control form-control-sm" id="query" name="query" placeholder="Rechercher..." />
+                            </form>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -77,15 +84,19 @@
                                 </a>
 
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ Route('profile') }}">Profil</a>
+                                    <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
+                                    <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Afficher mes favoris</a>
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                                            document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                </ul>
+                                </div>
                             </div>
                         @endguest
                     </ul>
@@ -108,13 +119,48 @@
         <!-- Page Header -->
         <div class="w-100 d-flex justify-content-center bg-light border-bottom">
             <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
-        </div>        
+        </div>
 
         <main class="py-4">
             @yield('content')
         </main>
 
+        <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
+            <div class="container p-3" style="margin-bottom: 40px;">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Droits de reproduction</h5>
+                        <p>
+                            Les contenus du site à l’exception des marques et logos et des contenus
+                            grevés de droits de propriété intellectuelle de tiers ou contenant des données à caractère personnel,
+                            sont des informations publiques librement et gratuitement réutilisables dans les conditions fixées
+                            par la loi n°78-753 du 17 juillet 1978, formalisées dans les conditions générales de réutilisation
+                            des informations publiques ou dans le respect des conditions générales de réutilisation des
+                            informations publiques.
+                        </p>
+                    </div>
+                    <div class="col-lg-1 col-md-6 mb-4 mb-md-0"> </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-0">plus d'informations</h5>
 
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!" class="text-dark">aide</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center p-2 position-fixed w-100 bg-secondary text-white" style="bottom:0;height:40px;">
+                © 2021 Copyright :
+                <a class="text-white" href="">FRANCE.GOUV</a>
+            </div>
+        </footer>
+        
     </div>
 
     <!-- Scripts -->
