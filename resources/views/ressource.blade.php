@@ -38,7 +38,7 @@
         <div class="text-center  mt-4">
             @auth
             @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-            <a href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteResModal">supprimer</a>
+            <a class="text-secondary" href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" data-toggle="modal" data-target="#deleteResModal">supprimer</a>
 
             <div class="modal fade" id="deleteResModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
