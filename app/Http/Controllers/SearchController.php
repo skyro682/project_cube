@@ -30,8 +30,33 @@ class SearchController extends SearchControllerManager
         $regions = (new Zone)->get();
         $tableResults = new Ressources;
         $tableTreated = false;
+        $query = '';
+        if(isset($_GET['query']))
+        {
+            $query = $_GET['query'];
+        }
+        $contentQuery = '';
+        if(isset($_GET['contentQuery']))
+        {
+            $contentQuery = $_GET['contentQuery'];
+        }
+        $category = 'all';
+        if(isset($_GET['category']))
+        {
+            $category = $_GET['category'];
+        }
+        $region = 'all';
+        if(isset($_GET['region']))
+        {
+            $region = $_GET['region'];
+        }
+        $order = 0;
+        if(isset($_GET['order']))
+        {
+            $order = $_GET['order'];
+        }
 
-        $tableResults = $this->queryMake($_GET['query'], $_GET['contentQuery'], $_GET['category'], $_GET['region'], $_GET['order']);
+        $tableResults = $this->queryMake($query, $contentQuery, $category, $region, $order);
 
         return view('search',[
             'searchResults' => $tableResults,

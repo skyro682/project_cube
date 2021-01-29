@@ -42,7 +42,7 @@ class SearchControllerManager extends Controller
             array_push($whereArray, ['zone_id', '=', $selectedRegion ]);
         }
 
-        $processing_query = Ressources::with('id', 'name', 'content', 'count_view', 'zone_id', 'category_id', 'users_id', 'created_at', 'updated_at');
+        //$processing_query = Ressources::with('id', 'name', 'content', 'count_view', 'zone_id', 'category_id', 'users_id', 'created_at', 'updated_at');
         $processing_query = new Ressources;
         $processing_query = $processing_query->Where($whereArray);
 
