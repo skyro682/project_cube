@@ -22,7 +22,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
                             </div>
-                            <select name="zone_id" class="custom-select" id="inputGroupSelect01">
+                            <select name="category" class="custom-select" id="inputGroupSelect01">
                                 <option value="{{ (isset($ressource)) ? $ressource->$category->id : '' }}">{{ (isset($ressource)) ? $ressource->$category->name : 'Choisir une option...' }}</option>
                                 @foreach ($categoriesList as $category)
 
@@ -35,7 +35,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">Région</label>
                             </div>
-                            <select name="zone_id" class="custom-select" id="inputGroupSelect01">
+                            <select name="region" class="custom-select" id="inputGroupSelect01">
                                 <option value="{{ (isset($ressource)) ? $ressource->region->id : '' }}">{{ (isset($ressource)) ? $ressource->region->name : 'Choisir une option...' }}</option>
                                 @foreach ($regionsList as $region)
 
