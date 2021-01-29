@@ -58,7 +58,7 @@ class RessourcesController extends Controller
 
         $ressources = Ressources::find($ressources->id);
 
-        return response(['project' => new Ressources($ressources), 'message' => 'Created successfully'], 201);
+        return response(['project' => new ApiResource($ressources), 'message' => 'Created successfully'], 201);
     }
 
     /**
