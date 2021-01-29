@@ -9,11 +9,9 @@
         @auth
         <!-- add favorite-->
         <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6 text-center">
-                <i class="text-center  {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> 
-                    <a style="padding-top: 20" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris)]) }}">{{(count($favoris) > 0) ? 'Suprimer des favoris' : 'Ajouter au favoris' }}</a>    
-                </i>
+            <div class="col d-flex justify-content-center">
+                <i class="mr-2 {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> </i>
+                <a class="mt-1" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris)]) }}">{{(count($favoris) > 0) ? 'Suprimer des favoris' : 'Ajouter au favoris' }}</a>    
             </div>
         </div>
         <br>
