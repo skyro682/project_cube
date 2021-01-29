@@ -51,127 +51,126 @@
                                 <a class="dropdown-item" href="#">Statistiques</a>
                                 <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
                     </ul>
-                </div>
-                @endif
-                <div class="form-group mt-3 mr-2">
-                    <input type="text" class="h-100 form-control" id="query" name="query" placeholder="Rechercher..." />
-                </div>
-                @endauth
-                </ul>
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
-                    <!-- Authentication Links -->
-                    @guest
-                    @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
                     @endif
+                    <div class="form-group mt-3 mr-2">
+                        <input type="text" class="h-100 form-control" id="query" name="query" placeholder="Rechercher..." />
+                    </div>
+                    @endauth
+                    </ul>
 
-                    @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                    @endif
-                    @else
-                    <div class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Auth::user()->username }}
-                        </a>
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
+                        <!-- Authentication Links -->
+                        @guest
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @endif
 
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
-                            <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Afficher mes favoris</a>
-
-
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
+                        @else
+                        <div class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ Auth::user()->username }}
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                </ul>
-            </div>
-            @endguest
-            </ul>
-    </div>
-    </div>
-    </nav>
 
-    @if (session('error'))
-    <div class="mx-auto alert alert-danger mb-0">
-        {{ session('error') }}
-    </div>
-    @endif
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
+                                <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Afficher mes favoris</a>
 
-    @if (session('success'))
-    <div class="mx-auto alert alert-success mb-0">
-        {{ session('success') }}
-    </div>
-    @endif
 
-    <!-- Page Header -->
-    <div class="w-100 d-flex justify-content-center bg-light border-bottom">
-        <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
-    </div>
-
-    <main class="py-4">
-        @yield('content')
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
-        <!-- Grid container -->
-        <div class="container p-3">
-            <!--Grid row-->
-            <div class="row">
-                <!--Grid column-->
-                <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Droits de reproduction</h5>
-                    <p>
-                        Les contenus du site à l’exception des marques et logos et des contenus
-                        grevés de droits de propriété intellectuelle de tiers ou contenant des données à caractère personnel,
-                        sont des informations publiques librement et gratuitement réutilisables dans les conditions fixées
-                        par la loi n°78-753 du 17 juillet 1978, formalisées dans les conditions générales de réutilisation
-                        des informations publiques ou dans le respect des conditions générales de réutilisation des
-                        informations publiques.
-                    </p>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-1 col-md-6 mb-4 mb-md-0"> </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase mb-0">plus d'informations</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!" class="text-dark">aide</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">contact</a>
-                        </li>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                     </ul>
                 </div>
-                <!--Grid column-->
+                @endguest
+                </ul>
             </div>
-            <!--Grid row-->
-        </div>
-        <!-- Grid container -->
+        </nav>
 
-        <!-- Copyright -->
-        <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2021 Copyright :
-            <a class="text-dark" href="">FRANCE.GOUV</a>
+        @if (session('error'))
+        <div class="mx-auto alert alert-danger mb-0">
+            {{ session('error') }}
         </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+        @endif
+
+        @if (session('success'))
+        <div class="mx-auto alert alert-success mb-0">
+            {{ session('success') }}
+        </div>
+        @endif
+
+        <!-- Page Header -->
+        <div class="w-100 d-flex justify-content-center bg-light border-bottom">
+            <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
+        </div>
+
+        <main class="py-4">
+            @yield('content')
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
+            <!-- Grid container -->
+            <div class="container p-3">
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Droits de reproduction</h5>
+                        <p>
+                            Les contenus du site à l’exception des marques et logos et des contenus
+                            grevés de droits de propriété intellectuelle de tiers ou contenant des données à caractère personnel,
+                            sont des informations publiques librement et gratuitement réutilisables dans les conditions fixées
+                            par la loi n°78-753 du 17 juillet 1978, formalisées dans les conditions générales de réutilisation
+                            des informations publiques ou dans le respect des conditions générales de réutilisation des
+                            informations publiques.
+                        </p>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-1 col-md-6 mb-4 mb-md-0"> </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-0">plus d'informations</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!" class="text-dark">aide</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
+                © 2021 Copyright :
+                <a class="text-dark" href="">FRANCE.GOUV</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
     </div>
 
     <!-- Scripts -->
