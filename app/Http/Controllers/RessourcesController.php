@@ -94,10 +94,17 @@ class RessourcesController extends Controller
     {
         $userId = Auth::user();
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
-        $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
+        if(Auth::user()) {
+            $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
+        }
         $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
-
-        return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'favoris' => $favoris]);
+        if(Auth::user()) {
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'favoris' => $favoris]);
+        }
+        else{
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments]);   
+        }
+        
     }
 
     //----------------------------------------------------------------------------------
