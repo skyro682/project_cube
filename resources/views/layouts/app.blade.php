@@ -35,6 +35,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -44,73 +45,75 @@
                             <a class="nav-link" href="{{route('ressources.add')}}">Ajouter une ressource</a> <!-- si connecté -->
                         </li>
                         @auth
-                        @if ( Auth::user()->isAdmin())
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Statistiques</a>
-                                <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
-                                @endauth
-                        @endif
-                    </ul>
-
-                    @auth
-                    <div class="form-group mt-3 mr-2">
-                        <input type="text" class="h-100 form-control" id="query" name="query" placeholder="Rechercher..." />
-                    </div>
-                    @endauth
+                            @if ( Auth::user()->isAdmin())
+                                <div class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Statistiques</a>
+                                        <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
+                                    <div class="dropdown-menu">
+                                </div> 
+                            @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
+                        <li class="nav-item mr-3 my-auto">
+                            <form action="{{ Route('search') }}">
+                                <input type="text" class="form-control form-control-sm" id="query" name="query" placeholder="Rechercher..." />
+                            </form>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
-                        @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
 
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
                         @else
-                        <div class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ Auth::user()->username }}
-                            </a>
-
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
-                                <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Afficher mes favoris</a>
-
-
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                            <div class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ Auth::user()->username }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
+                                    <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Afficher mes favoris</a>
+
+
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </div>
+                        @endguest
                     </ul>
                 </div>
-                @endguest
-                </ul>
             </div>
         </nav>
 
         @if (session('error'))
-        <div class="mx-auto alert alert-danger mb-0">
-            {{ session('error') }}
-        </div>
+            <div class="mx-auto alert alert-danger mb-0">
+                {{ session('error') }}
+            </div>
         @endif
 
         @if (session('success'))
-        <div class="mx-auto alert alert-success mb-0">
-            {{ session('success') }}
-        </div>
+            <div class="mx-auto alert alert-success mb-0">
+                {{ session('success') }}
+            </div>
         @endif
 
         <!-- Page Header -->
@@ -122,13 +125,9 @@
             @yield('content')
         </main>
 
-        <!-- Footer -->
         <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
-            <!-- Grid container -->
-            <div class="container p-3">
-                <!--Grid row-->
+            <div class="container p-3" style="margin-bottom: 40px;">
                 <div class="row">
-                    <!--Grid column-->
                     <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
                         <h5 class="text-uppercase">Droits de reproduction</h5>
                         <p>
@@ -140,13 +139,7 @@
                             informations publiques.
                         </p>
                     </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
                     <div class="col-lg-1 col-md-6 mb-4 mb-md-0"> </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                         <h5 class="text-uppercase mb-0">plus d'informations</h5>
 
@@ -159,20 +152,15 @@
                             </li>
                         </ul>
                     </div>
-                    <!--Grid column-->
                 </div>
-                <!--Grid row-->
             </div>
-            <!-- Grid container -->
 
-            <!-- Copyright -->
-            <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
+            <div class="text-center p-2 position-fixed w-100 bg-secondary text-white" style="bottom:0;height:40px;">
                 © 2021 Copyright :
-                <a class="text-dark" href="">FRANCE.GOUV</a>
+                <a class="text-white" href="">FRANCE.GOUV</a>
             </div>
-            <!-- Copyright -->
         </footer>
-        <!-- Footer -->
+        
     </div>
 
     <!-- Scripts -->
