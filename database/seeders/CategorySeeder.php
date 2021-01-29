@@ -17,6 +17,7 @@ class CategorySeeder extends Seeder
         DB::table('Category')->delete();
 
         $category = [
+            ['name' => 'Catégorie non renseignée'],
             ['name' => 'Art'],
             ['name' => 'Climat'],
             ['name' => 'Communiqué'],

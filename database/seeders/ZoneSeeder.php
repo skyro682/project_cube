@@ -17,6 +17,7 @@ class ZoneSeeder extends Seeder
         DB::table('zone')->delete();
 
         $zone = [
+            ['name' => 'Région non renseignée'],
             ['name' => 'Auvergne-Rhône-Alpes'],
             ['name' => 'Bourgogne-Franche-Comté'],
             ['name' => 'Bretagne'],
