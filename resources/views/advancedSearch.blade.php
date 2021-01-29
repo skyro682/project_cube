@@ -9,7 +9,7 @@
                 <form action="{{ route('advancedSearch') }}" method="get">
                     <div class="form-group">
                         <label for="query">Rechercher une ressource</label>
-                        <input type="text" class="form-control" id="query" name="query"  placeholder="Par nom"
+                        <input type="text" class="form-control" id="query" name="query"  placeholder="Par titre"
                         @if(isset($_GET['query']))
                             value="{{ $_GET['query'] }}"
                         @endif>
@@ -20,19 +20,6 @@
                         <br>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
-                            </div>
-                            <select name="category" class="custom-select" id="inputGroupSelect01">
-                                <option value="{{ (isset($ressource)) ? $ressource->$category->id : '' }}">{{ (isset($ressource)) ? $ressource->$category->name : 'Choisir une option...' }}</option>
-                                @foreach ($categoriesList as $category)
-
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">Région</label>
                             </div>
                             <select name="region" class="custom-select" id="inputGroupSelect01">
@@ -40,6 +27,19 @@
                                 @foreach ($regionsList as $region)
 
                                     <option value="{{ $region->id }}">{{ $region->name }}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Catégorie</label>
+                            </div>
+                            <select name="category" class="custom-select" id="inputGroupSelect01">
+                                <option value="{{ (isset($ressource)) ? $ressource->$category->id : '' }}">{{ (isset($ressource)) ? $ressource->$category->name : 'Choisir une option...' }}</option>
+                                @foreach ($categoriesList as $category)
+
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
 
                                 @endforeach
                             </select>

@@ -8,8 +8,8 @@
             <div class="col-md-4">
                 <form action="{{ route('search') }}" method="get">
                     <div class="form-group">
-                        <label for="query">Rechercher un post</label>
-                        <input type="text" class="form-control" id="query" name="query"  placeholder="Par nom"
+                        <label for="query">Rechercher une ressource</label>
+                        <input type="text" class="form-control" id="query" name="query"  placeholder="Rechercher"
                         @if(isset($_GET['query']))
                             value="{{ $_GET['query'] }}"
                         @endif>
