@@ -61,9 +61,10 @@
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="card text-center">
-                        <div class="card-header">{{ $postResult['name'] }}</div>
+                        <div class="card-header">{{ $postResult->name }}</div>
                         <div class="card-body">
-                            <p class ="card-text">{{ $postResult['content'] }}</p>
+                            <p class ="card-text">{{ $postResult->content }}</p>
+                            <button type="button" class="btn btn-info" onclick="location.href='{{ route('viewRes', ['id' => $postResult->id]) }}'">Voir plus...</button>
                         </div>
                     </div>
                 </div>
