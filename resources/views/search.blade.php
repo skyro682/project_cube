@@ -14,8 +14,8 @@
                             value="{{ $_GET['query'] }}"
                         @endif>
                         <br>
-                        <button type="submit" class="btn btn-primary">Rechercher</button>
-                        <a class="btn btn-primary" href="{{ route('advancedSearch') }}" role="button">Recherche Avancée</a>
+                        <button type="submit" class="btn btn-info">Rechercher</button>
+                        <a class="btn btn-info" href="{{ route('advancedSearch') }}" role="button">Recherche Avancée</a>
                     </div>
                 </form>
             </div>

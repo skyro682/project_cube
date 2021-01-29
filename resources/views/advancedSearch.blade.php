@@ -48,8 +48,8 @@
                             <option value=3>Les moins vus d'abord</option>
                         </select>
                         <br>
-                        <button type="submit" class="btn btn-primary">Rechercher</button>
-                        <a class="btn btn-primary" href="{{ route('search') }}" role="button">Recherche Simple</a>
+                        <button type="submit" class="btn btn-info">Rechercher</button>
+                        <a class="btn btn-info" href="{{ route('search') }}" role="button">Recherche Simple</a>
                     </div>
                 </form>
             </div>
