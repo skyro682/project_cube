@@ -68,21 +68,6 @@
 
     @if ($searchResults != NULL)
         @foreach($searchResults as $ressource)
-        <!--
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-header">{{ $ressource->name }}</div>
-                        <div class="card-body">
-                            <p class ="card-text">{{ $ressource->content }}</p>
-                            <button type="button" class="btn btn-info" onclick="location.href='{{ route('viewRes', ['id' => $ressource->id]) }}'">Voir plus...</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
         <div class="" id="">
             <div class="col-lg-4"> </div>
             <div class="container col-lg-4">
@@ -93,8 +78,8 @@
                 <h5 class="text-center text-uppercase">{{ $ressource->Category->name }}</h5>
 
                 <h6 class="text-center text-uppercase">Post de : {{ $ressource->Users->username }}</h6>
-                <h6 class="text-center text-uppercase">écrit le : {{ $ressource->created_at }}</h6>
-                <h6 class="text-center text-uppercase">Mise à jour le : {{ $ressource->updated_at }}</h6>
+                <h6 class="text-center text-uppercase">écrit le : {{ date('d/m/Y', strtotime($ressource->created_at)) }} à {{ date('h:i:s', strtotime($ressource->created_at)) }}</h6>
+                <h6 class="text-center text-uppercase">Mise à jour le : {{ date('d/m/Y', strtotime($ressource->updated_at)) }} à {{ date('h:i:s', strtotime($ressource->updated_at)) }}</h6>
 
                 <!-- more Section-->
                 <div class="text-center mt-4">

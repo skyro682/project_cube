@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <i class="mr-2 {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> </i>
-                <a class="mt-1" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>    
+                <a class="mt-1" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>
             </div>
         </div>
         <br>
@@ -23,8 +23,8 @@
         <h5 class="text-center text-uppercase">{{ $ressource->Category->name }}</h5>
 
         <h6 class="text-center text-uppercase">Post de : {{ $ressource->Users->username }}</h6>
-        <h6 class="text-center text-uppercase">écrit le : {{ $ressource->created_at }}</h6>
-        <h6 class="text-center text-uppercase">Mise à jour le : {{ $ressource->updated_at }}</h6>
+        <h6 class="text-center text-uppercase">écrit le : {{ date('d/m/Y', strtotime($ressource->created_at)) }} à {{ date('h:i:s', strtotime($ressource->created_at)) }}</h6>
+        <h6 class="text-center text-uppercase">Mise à jour le : {{ date('d/m/Y', strtotime($ressource->updated_at)) }} à {{ date('h:i:s', strtotime($ressource->updated_at)) }}</h6>
 
         <!-- Section Content-->
         <div class="row">
