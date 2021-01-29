@@ -9,7 +9,7 @@ use App\Models\Ressources;
 
 class SearchControllerManager extends Controller
 {
-    
+
     public function queryMake($query, $contentQuery, $selectedCategory, $selectedRegion, $order)
     {
         $whereArray = array();
@@ -50,10 +50,10 @@ class SearchControllerManager extends Controller
                     $processing_query = $processing_query->orderBy('updated_at', 'asc');
                     break;
                 case 4:
-                    $processing_query = $processing_query->orderBy('count_view', 'asc');
+                    $processing_query = $processing_query->orderBy('count_view', 'desc');
                     break;
                 case 5:
-                    $processing_query = $processing_query->orderBy('count_view', 'desc');
+                    $processing_query = $processing_query->orderBy('count_view', 'asc');
                     break;
                 default:
                     $processing_query = $processing_query->orderBy('created_at', 'desc');
