@@ -50,9 +50,11 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Statistiques</a>
                                 <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
+                                @endauth
+                        @endif
                     </ul>
 
-                    @endif
+                    @auth
                     <div class="form-group mt-3 mr-2">
                         <input type="text" class="h-100 form-control" id="query" name="query" placeholder="Rechercher..." />
                     </div>
