@@ -14,17 +14,13 @@ class GradeSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('grade')->delete();
+
         DB::table('grade')->insert([
-            'name' => 'Utilisateur',
-        ]);
-        DB::table('grade')->insert([
-            'name' => 'Moderateur',
-        ]);
-        DB::table('grade')->insert([
-            'name' => 'Administrateur',
-        ]);
-        DB::table('grade')->insert([
-            'name' => 'Super Administrateur',
+            ['id' => 1, 'name' => 'Utilisateur'],
+            ['id' => 2, 'name' => 'Moderateur'],
+            ['id' => 3, 'name' => 'Administrateur'],
+            ['id' => 4, 'name' => 'Super Administrateur'],
         ]);
     }
 }

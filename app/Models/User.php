@@ -29,6 +29,7 @@ class User extends Authenticatable
         'address',
         'city',
         'cp_code',
+        'grade_id',
     ];
 
     /**
@@ -49,6 +50,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin(){
+        return ($this->grade_id == 4 || $this->grade_id == 3);
+    }
+
+    public function isSuperAdmin(){
+        return ($this->grade_id == 4);
+    }
 
     public function Ressources(){
         return $this->hasMany(Ressources::class);
