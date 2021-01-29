@@ -9,9 +9,9 @@
         @auth
         <!-- add favorite-->
         <div class="row">
-            <div class="col d-flex justify-content-center">
+            <div class="col d-flex justify-content-center">  
                 <i class="mr-2 {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> </i>
-                <a class="mt-1" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>
+                <a class="mt-1 {{(count($favoris) > 0) ? 'text-danger' : 'text-secondary' }}" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>
             </div>
         </div>
         <br>
@@ -110,7 +110,7 @@
         <p>{{ $comment->content }} | {{ $comment->created_at }} | {{ $comment->users->username }}</p> <!-- com 1-->
         @auth
         @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-        <a href="{{ route('ressources.viewUpdateComment', ['id' => $ressource->id, 'id_com' => $comment->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteComModal{{$comment->id}}" onclick="">supprimer</a>
+        <a class="text-secondary" href="{{ route('ressources.viewUpdateComment', ['id' => $ressource->id, 'id_com' => $comment->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" style="cursor:  pointer;" data-toggle="modal" data-target="#deleteComModal{{$comment->id}}" onclick="">supprimer</a>
 
         <div class="modal fade" id="deleteComModal{{$comment->id}}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">

@@ -124,9 +124,10 @@
         <main class="py-4">
             @yield('content')
         </main>
-
+        <br>
+        <hr>
         <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
-            <div class="container p-3" style="margin-bottom: 100px;">
+            <div class="container p-3" style="margin-bottom: 40px;">
                 <div class="row">
                     <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
                         <h5 class="text-uppercase">Droits de reproduction</h5>
@@ -144,12 +145,15 @@
                         <h5 class="text-uppercase mb-0">plus d'informations</h5>
 
                         <ul class="list-unstyled">
+                        <hr>
                             <li>
-                                <a href="#!" class="text-dark">aide</a>
+                                <a href="#!" class="text-dark">Besoin d'aide?</a>
                             </li>
+                            <hr>
                             <li>
-                                <a href="{{ route('contact') }}" class="text-dark">contact</a>
+                                <a href="{{ route('contact') }}" class="text-dark">Nous contacter</a>
                             </li>
+                            <hr>
                         </ul>
                     </div>
                 </div>
