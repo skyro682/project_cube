@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <i class="mr-2 {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> </i>
-                <a class="mt-1" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris)]) }}">{{(count($favoris) > 0) ? 'Suprimer des favoris' : 'Ajouter au favoris' }}</a>    
+                <a class="mt-1" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>    
             </div>
         </div>
         <br>

@@ -94,17 +94,15 @@ class RessourcesController extends Controller
     {
         $userId = Auth::user();
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
-        if(Auth::user()) {
+        if (Auth::user()) {
             $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         }
         $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
-        if(Auth::user()) {
+        if (Auth::user()) {
             return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'favoris' => $favoris]);
+        } else {
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments]);
         }
-        else{
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments]);   
-        }
-        
     }
 
     //----------------------------------------------------------------------------------
@@ -161,10 +159,20 @@ class RessourcesController extends Controller
         return redirect(route('viewRes', ['id' => $id]));
     }
     //----------------------------------------------------------------------------------
-    public function add_or_delete($id, $add)
+    //Favorite
+    public function viewFavorite()
     {
         $userId = Auth::user();
 
+        $favorites = Favorite::with('Ressources', 'Ressources.Users')->where('users_id', $userId->id)->get();
+
+        return view('favorite', ['favorites' => $favorites]);
+    }
+
+    public function add_or_delete($id, $add, $view)
+    {
+        $userId = Auth::user();
+        //dd( $view);
         //dd($add, $id, $userId->id);
         if ($add < 1) {
             $favorite = Favorite::where([['ressources_id', $id], ['users_id', $userId->id]])->get();
@@ -178,6 +186,16 @@ class RessourcesController extends Controller
             $favorite = Favorite::where([['ressources_id', $id], ['users_id', $userId->id]])->first();
             $favorite->delete();
         }
-        return redirect(route('viewRes', ['id' => $id]));
+        
+        if ($view == '1') {        // vue ressource
+            return redirect(route('viewRes', ['id' => $id]));
+        }
+        else if ($view == '2'){    // vue favoris
+            $favorites = Favorite::with('Ressources', 'Ressources.Users')->where('users_id', $userId->id)->get();
+            return view('favorite', ['favorites' => $favorites]);
+        }
+        else{                   // sinon vue accueil
+            return redirect('/');    
+        }
     }
 }
