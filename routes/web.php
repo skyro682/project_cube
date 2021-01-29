@@ -40,9 +40,10 @@ Route::middleware('auth')->group(function(){
     });
 
     //favorite.add_or_delete
-        // Route favorite
+        // Route favorite // favorite
         Route::prefix('favorite')->name('favorite.')->group(function(){
-            Route::get('/add_or_delete/{id}/{add}', [App\Http\Controllers\RessourcesController::class, 'add_or_delete'])->name('add_or_delete');
+            Route::get('/viewFavorite', [App\Http\Controllers\RessourcesController::class, 'viewFavorite'])->name('viewFavorite');
+            Route::get('/add_or_delete/{id}/{add}/{view}', [App\Http\Controllers\RessourcesController::class, 'add_or_delete'])->name('add_or_delete');
         });
 
     // Route profile

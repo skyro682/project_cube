@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 
 <head>
     <meta charset="utf-8">
@@ -23,7 +23,7 @@
 
 </head>
 
-<body>
+<body class="position-relative" style="min-height: 100%;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" id="mainNav">
             <div class="container">
@@ -53,6 +53,9 @@
                     </ul>
                 </div>
                 @endif
+                <div class="form-group mt-3 mr-2">
+                    <input type="text" class="h-25 form-control" id="query" name="query" placeholder="Rechercher..." />
+                </div>
                 @endauth
                 </ul>
 
@@ -78,7 +81,10 @@
                         </a>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ Route('profile') }}">Profil</a>
+                            <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
+                            <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Afficher mes favoris</a>
+
+
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
@@ -116,60 +122,39 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start">
+    <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
         <!-- Grid container -->
-        <div class="container p-4">
+        <div class="container p-3">
             <!--Grid row-->
             <div class="row">
                 <!--Grid column-->
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Footer Content</h5>
-
+                <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Droits de reproduction</h5>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-                        voluptatem veniam, est atque cumque eum delectus sint!
+                        Les contenus du site à l’exception des marques et logos et des contenus
+                        grevés de droits de propriété intellectuelle de tiers ou contenant des données à caractère personnel,
+                        sont des informations publiques librement et gratuitement réutilisables dans les conditions fixées
+                        par la loi n°78-753 du 17 juillet 1978, formalisées dans les conditions générales de réutilisation
+                        des informations publiques ou dans le respect des conditions générales de réutilisation des
+                        informations publiques.
                     </p>
                 </div>
                 <!--Grid column-->
 
                 <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <a href="#!" class="text-dark">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 4</a>
-                        </li>
-                    </ul>
-                </div>
+                <div class="col-lg-1 col-md-6 mb-4 mb-md-0"> </div>
                 <!--Grid column-->
 
                 <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase mb-0">Links</h5>
+                    <h5 class="text-uppercase mb-0">plus d'informations</h5>
 
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!" class="text-dark">Link 1</a>
+                            <a href="#!" class="text-dark">aide</a>
                         </li>
                         <li>
-                            <a href="#!" class="text-dark">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 4</a>
+                            <a href="#!" class="text-dark">contact</a>
                         </li>
                     </ul>
                 </div>
@@ -181,7 +166,7 @@
 
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2021 Copyright:
+            © 2021 Copyright :
             <a class="text-dark" href="">FRANCE.GOUV</a>
         </div>
         <!-- Copyright -->
