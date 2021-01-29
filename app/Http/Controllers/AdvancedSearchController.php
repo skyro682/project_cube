@@ -16,7 +16,7 @@ class AdvancedSearchController extends SearchControllerManager
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        
     }
 
     /**
