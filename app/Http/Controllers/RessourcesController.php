@@ -81,7 +81,9 @@ class RessourcesController extends Controller
         $userId = Auth::user();
 
         $ressource = Ressources::find($id);
+        $favorites = Favorite::where('ressources_id', $id);
         if ($ressource->users_id == $userId->id || $userId->grade_id > 1) {
+            $favorites->delete();
             $ressource->delete();
         }
 
