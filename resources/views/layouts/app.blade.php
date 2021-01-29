@@ -54,7 +54,7 @@
                 </div>
                 @endif
                 <div class="form-group mt-3 mr-2">
-                    <input type="text" class="h-25 form-control" id="query" name="query" placeholder="Rechercher..." />
+                    <input type="text" class="h-100 form-control" id="query" name="query" placeholder="Rechercher..." />
                 </div>
                 @endauth
                 </ul>
