@@ -96,6 +96,8 @@ class RessourcesController extends Controller
     {
         $userId = Auth::user();
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
+        $count_view = ($ressource->count_view)+1;
+        $ressource->update(['count_view' => $count_view]);
         if (Auth::user()) {
             $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         }
@@ -188,7 +190,7 @@ class RessourcesController extends Controller
             $favorite = Favorite::where([['ressources_id', $id], ['users_id', $userId->id]])->first();
             $favorite->delete();
         }
-        
+
         if ($view == '1') {        // vue ressource
             return redirect(route('viewRes', ['id' => $id]));
         }
@@ -197,7 +199,7 @@ class RessourcesController extends Controller
             return view('favorite', ['favorites' => $favorites]);
         }
         else{                   // sinon vue accueil
-            return redirect('/');    
+            return redirect('/');
         }
     }
 }
