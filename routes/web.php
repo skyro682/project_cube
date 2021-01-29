@@ -18,6 +18,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\RessourcesController::class, 'listAll'])->name('home');
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'searchRes'])->name('search');
 Route::get('/advancedSearch', [App\Http\Controllers\AdvancedSearchController::class, 'searchRes'])->name('advancedSearch');
+Route::get('/contact', [App\Http\Controllers\OtherController::class, 'contact'])->name('contact');
 Route::get('/ressource/{id}', [App\Http\Controllers\RessourcesController::class, 'viewRes'])->name('viewRes');
 
 // Route Utilisateur Connecter

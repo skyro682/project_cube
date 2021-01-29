@@ -126,7 +126,7 @@
         </main>
 
         <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
-            <div class="container p-3" style="margin-bottom: 40px;">
+            <div class="container p-3" style="margin-bottom: 100px;">
                 <div class="row">
                     <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
                         <h5 class="text-uppercase">Droits de reproduction</h5>
@@ -148,13 +148,13 @@
                                 <a href="#!" class="text-dark">aide</a>
                             </li>
                             <li>
-                                <a href="#!" class="text-dark">contact</a>
+                                <a href="{{ route('contact') }}" class="text-dark">contact</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
+            <br>
             <div class="text-center p-2 position-fixed w-100 bg-secondary text-white" style="bottom:0;height:40px;">
                 © 2021 Copyright :
                 <a class="text-white" href="">FRANCE.GOUV</a>
