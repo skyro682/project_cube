@@ -64,7 +64,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-sm" id="query" name="query" placeholder="Rechercher..." />
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-info btn-sm bi bi-search" type="button"></button>
+                                        <button class="btn btn-outline-info btn-sm bi bi-search" type="submit"></button>
                                     </div>
                                 </div>
                             </form>
@@ -151,7 +151,7 @@
                         <ul class="list-unstyled">
                             <hr>
                             <li>
-                                <a href="#!" class="text-dark">Besoin d'aide?</a>
+                                <a href="{{ route('help') }}" class="text-dark">Besoin d'aide?</a>
                             </li>
                             <hr>
                             <li>

@@ -19,6 +19,7 @@ Route::get('/', [App\Http\Controllers\RessourcesController::class, 'listAll'])->
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'searchRes'])->name('search');
 Route::get('/advancedSearch', [App\Http\Controllers\AdvancedSearchController::class, 'searchRes'])->name('advancedSearch');
 Route::get('/contact', [App\Http\Controllers\OtherController::class, 'contact'])->name('contact');
+Route::get('/help', [App\Http\Controllers\OtherController::class, 'help'])->name('help');
 Route::get('/ressource/{id}', [App\Http\Controllers\RessourcesController::class, 'viewRes'])->name('viewRes');
 
 // Route Utilisateur Connecter

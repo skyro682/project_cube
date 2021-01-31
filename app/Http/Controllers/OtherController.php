@@ -13,7 +13,7 @@ class OtherController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -24,5 +24,9 @@ class OtherController extends Controller
     public function contact()
     {
         return view('contact');
+    }
+    public function help()
+    {
+        return view('help');
     }
 }
