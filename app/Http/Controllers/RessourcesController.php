@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\http\Request;
 use App\Models\Ressources;
 use App\Models\Comments;
 use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\User;
 use App\Models\Zone;
-
 use Illuminate\Support\Facades\Auth;
 
 class RessourcesController extends Controller
@@ -43,8 +44,15 @@ class RessourcesController extends Controller
         }
     }
 
-    public function addResClick()
+    public function addResClick(Request $file)
     {
+        //dd($file);
+       /* if ($file->file('file') == null) {
+            return('Impossible d\'importer le fichier.');
+        }else{
+            $f = $file->file->store('public'); 
+        }*/
+
         $userId = Auth::user()->id;
 
         $ressource = new Ressources();

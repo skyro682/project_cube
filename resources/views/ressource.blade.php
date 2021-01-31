@@ -9,7 +9,7 @@
         @auth
         <!-- add favorite-->
         <div class="row">
-            <div class="col d-flex justify-content-center">  
+            <div class="col d-flex justify-content-center">
                 <i class="mr-2 {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> </i>
                 <a class="mt-1 {{(count($favoris) > 0) ? 'text-danger' : 'text-secondary' }}" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>
             </div>
@@ -33,6 +33,18 @@
                 <p class="lead"> {{ $ressource->content }} </p>
             </div>
         </div>
+        <br>
+
+
+        <h6 class="text-center text-uppercase">Fichier associé</h6>
+        
+        @if (Storage::disk('storage')->exists('file.jpg'))
+        <a class="text-center" href="<?php echo asset('storage/test.txt'); ?>"><?php echo asset('storage/test.txt'); ?></a>
+        @else
+        <p class="text-center text-muted">Aucun fichier</p>
+        @endif
+
+        <br>
 
         <!-- update or delete Section-->
         <div class="text-center  mt-4">
@@ -101,7 +113,7 @@
     <div class="container col-lg-4 bg-comment">
         @if (count($comments) == 0)
         <br>
-        <p>Aucun commentaire</p>
+        <p class="text-muted">Aucun commentaire</p>
         <hr>
         @endif
         @foreach ($comments as $comment)
