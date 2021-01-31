@@ -5,16 +5,17 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <form action="{{ route('search') }}" method="get">
-                    <div class="form-group">
-                        <label for="query">Rechercher une ressource</label>
-                        <input type="text" class="form-control" id="query" name="query"  placeholder="Rechercher"
+                    <div class="input-group">
+                        
+                        <input type="text" class="form-control mr-1" id="query" name="query"  placeholder="Rechercher"
                         @if(isset($_GET['query']))
                             value="{{ $_GET['query'] }}"
                         @endif>
+                        
                         <br>
-                        <button type="submit" class="btn btn-info">Rechercher</button>
+                        <button type="submit" class="btn btn-info mr-1">Rechercher</button>
                         <a class="btn btn-info" href="{{ route('advancedSearch') }}" role="button">Recherche Avancée</a>
                     </div>
                 </form>

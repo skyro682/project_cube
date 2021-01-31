@@ -35,7 +35,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -45,59 +45,64 @@
                             <a class="nav-link" href="{{route('ressources.add')}}">Ajouter une ressource</a> <!-- si connecté -->
                         </li>
                         @auth
-                            @if ( Auth::user()->isAdmin())
-                                <div class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Statistiques</a>
-                                        <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
-                                    <div class="dropdown-menu">
-                                </div> 
-                            @endif
-                        @endauth
+                        @if ( Auth::user()->isAdmin())
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Statistiques</a>
+                                <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
+                                <div class="dropdown-menu">
+                                </div>
+                                @endif
+                                @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
                         <li class="nav-item mr-3 my-auto">
                             <form action="{{ Route('search') }}">
-                                <input type="text" class="form-control form-control-sm" id="query" name="query" placeholder="Rechercher..." />
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" id="query" name="query" placeholder="Rechercher..." />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-info btn-sm bi bi-search" type="button"></button>
+                                    </div>
+                                </div>
                             </form>
                         </li>
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
-                                </li>
-                            @endif
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                        </li>
+                        @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
-                                </li>
-                            @endif
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
+                        </li>
+                        @endif
                         @else
-                            <div class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->username }}
+                        <div class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ Auth::user()->username }}
+                            </a>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
+                                <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Mes favoris</a>
+
+
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                    {{ __('Déconnexion') }}
                                 </a>
 
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
-                                    <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Mes favoris</a>
-
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                        {{ __('Déconnexion') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
+                        </div>
                         @endguest
                     </ul>
                 </div>
@@ -105,15 +110,15 @@
         </nav>
 
         @if (session('error'))
-            <div class="mx-auto alert alert-danger mb-0">
-                {{ session('error') }}
-            </div>
+        <div class="mx-auto alert alert-danger mb-0">
+            {{ session('error') }}
+        </div>
         @endif
 
         @if (session('success'))
-            <div class="mx-auto alert alert-success mb-0">
-                {{ session('success') }}
-            </div>
+        <div class="mx-auto alert alert-success mb-0">
+            {{ session('success') }}
+        </div>
         @endif
 
         <!-- Page Header -->
@@ -144,7 +149,7 @@
                         <h5 class="text-uppercase mb-0">plus d'informations</h5>
 
                         <ul class="list-unstyled">
-                        <hr>
+                            <hr>
                             <li>
                                 <a href="#!" class="text-dark">Besoin d'aide?</a>
                             </li>
@@ -163,7 +168,7 @@
                 <a class="text-white" href="">FRANCE.GOUV</a>
             </div>
         </footer>
-        
+
     </div>
 
     <!-- Scripts -->
