@@ -52,7 +52,6 @@ class RessourcesController extends Controller
         }else{
             $f = $file->file->store('public');
         }*/
-
         $userId = Auth::user()->id;
 
         $ressource = new Ressources();
@@ -62,7 +61,7 @@ class RessourcesController extends Controller
         $ressource->zone_id = request('zone_id');
         $ressource->category_id = request('category_id');
         $ressource->users_id = $userId;
-        $ressource->save();
+
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
@@ -78,16 +77,17 @@ class RessourcesController extends Controller
                 }
                 else
                 {
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/" . $_FILES["file"]["name"]);
+                    $filePath = "uploads/" . $_FILES["file"]["name"];
+                    move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
+                    $ressource->file_path = $filePath;
                     echo "Votre fichier a été téléchargé avec succès.";
-                    return redirect('/');
                 }
             }
-            else
-            {
-                return redirect('/');
-            }
         }
+
+        $ressource->save();
+
+        return redirect('/');
     }
 
     public function updateResClick($id)

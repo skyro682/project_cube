@@ -16,6 +16,7 @@ class Ressources extends Model
     protected $fillable = [
         'name',
         'count_view',
+        'file_path',
     ];
 
     public function Favorite(){
