@@ -19,22 +19,20 @@
             </tr>
         </thead>
         <tbody>
-            <?php $i = 1 ?>
-            @foreach ($favorites as $favorite)
+        @foreach ($favorites as $favoriteKey => $favorite)
 
             <tr>
 
-                <th scope="row">{{ $i }}</th>
+                <th scope="row">{{ $favoriteKey+1 }}</th>
                 <td><i onclick="location.href='{{ route('viewRes', ['id' => $favorite->ressources->id]) }}'" class="btn btn-sm btn-outline-info bi bi-search"></i></td>
                 <td>{{ date('d/m/Y', strtotime($favorite->created_at)) }}</td>
                 <td>{{ $favorite->ressources->name}}</td>
                 <td>{{ $favorite->ressources->Users->username }}</td>
                 <td>{{ date('d/m/Y', strtotime($favorite->ressources->created_at)) }}</td>
                 <td><i onclick="location.href='{{ route('favorite.add_or_delete', ['id' => $favorite->ressources->id, 'add' => 1, 'view' => '2']) }}'" class="btn btn-sm btn-outline-danger bi bi-trash"></i></td>
-                <?php $i = $i + 1 ?>    
             </tr>
 
-            @endforeach
+        @endforeach
 
         </tbody>
     </table>
