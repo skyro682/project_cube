@@ -94,15 +94,38 @@ class RessourcesController extends Controller
     {
         $userId = Auth::user()->id;
 
-        $ressource = Ressources::find($id);
-        if ($ressource->users_id == $userId) {
-            $ressource->name = request('name');
-            $ressource->content = request('content');
-            $ressource->count_view = 0;
-            $ressource->zone_id = request('zone_id');
-            $ressource->category_id = request('category_id');
-            $ressource->save();
+        $ressource = new Ressources();
+        $ressource->name = request('name');
+        $ressource->content = request('content');
+        $ressource->count_view = 0;
+        $ressource->zone_id = request('zone_id');
+        $ressource->category_id = request('category_id');
+        $ressource->users_id = $userId;
+
+
+        if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0)
+            {
+                $filesize = $_FILES["file"]["size"];
+
+                $maxsize = 5 * 1024 * 1024;
+                if($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
+
+                if(file_exists("upload/" . $_FILES["file"]["name"])) {
+                    echo $_FILES["file"]["name"] . " existe déjà.";
+                }
+                else
+                {
+                    $filePath = "uploads/" . $_FILES["file"]["name"];
+                    move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
+                    $ressource->file_path = $filePath;
+                    echo "Votre fichier a été téléchargé avec succès.";
+                }
+            }
         }
+
+        $ressource->save();
 
         return redirect('/');
     }
