@@ -8,12 +8,12 @@
             <div class="col-md-8">
                 <form action="{{ route('search') }}" method="get">
                     <div class="input-group">
-                        
+
                         <input type="text" class="form-control mr-1" id="query" name="query"  placeholder="Rechercher"
                         @if(isset($_GET['query']))
                             value="{{ $_GET['query'] }}"
                         @endif>
-                        
+
                         <br>
                         <button type="submit" class="btn btn-info mr-1">Rechercher</button>
                         <a class="btn btn-info" href="{{ route('advancedSearch') }}" role="button">Recherche Avancée</a>
@@ -24,48 +24,40 @@
     </div>
 
     @if ($searchResults != NULL)
-        @foreach($searchResults as $ressource)
-            <div class="" id="">
-                <div class="col-lg-4"> </div>
-                <div class="container col-lg-4">
-                    <br>
-                    <!-- Section Heading-->
-                    <h2 class="text-center text-uppercase">{{ $ressource->name }}</h2>
-                    <h5 class="text-center text-uppercase">{{ $ressource->Zone->name }}</h5>
-                    <h5 class="text-center text-uppercase">{{ $ressource->Category->name }}</h5>
 
-                    <h6 class="text-center text-uppercase">Post de : {{ $ressource->Users->username }}</h6>
-                    <h6 class="text-center text-uppercase">écrit le : {{ date('d/m/Y', strtotime($ressource->created_at)) }} à {{ date('h:i:s', strtotime($ressource->created_at)) }}</h6>
-                    <h6 class="text-center text-uppercase">Mis à jour le : {{ date('d/m/Y', strtotime($ressource->updated_at)) }} à {{ date('h:i:s', strtotime($ressource->updated_at)) }}</h6>
+        <div class="container col-10 mt-5 mb-5">
 
-                    <!-- more Section-->
-                    <div class="text-center mt-4">
-                        <button type="button" class="btn btn-info" onclick="location.href='{{ route('viewRes', ['id' => $ressource->id]) }}'">Voir plus...</button>
-                    </div>
-                    <!-- update or delete Section-->
-                    <div class="text-center  mt-4">
-                        @auth
-                            @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-                                <a class="text-secondary" href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" style="cursor:  pointer;" data-toggle="modal" data-target="#deleteResModal">supprimer</a>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"></th>
+                        <th scope="col">Date ajout</th>
+                        <th scope="col">Titre ressource</th>
+                        <th scope="col">Nom utilisateur</th>
+                        <th scope="col">Date création ressource</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($searchResults as $favoriteKey => $favorite)
 
-                                <div class="modal fade" id="deleteResModal{{$ressource->id}}" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-body d-flex">
-                                                <p class="mb-0">Etes vous sûr de vouloir supprimer cette ressource ?</p>
-                                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Annuler</button>
-                                                <button onclick="location.href='{{ route('ressources.delete', ['id' => $ressource->id]) }}'" class="btn btn-danger btn-sm ml-1 py-auto">Supprimer</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endauth
-                    </div>
-                    <br>
-                </div>
-            </div>
-        @endforeach
+                        <tr>
+
+                            <th scope="row">{{ $favoriteKey+1 }}</th>
+                            <td><i onclick="location.href='{{ route('viewRes', ['id' => $favorite->id]) }}'" class="btn btn-sm btn-outline-info bi bi-search"></i></td>
+                            <td>{{ date('d/m/Y', strtotime($favorite->created_at)) }}</td>
+                            <td>{{ $favorite->name}}</td>
+                            <td>{{ $favorite->Users->username }}</td>
+                            <td>{{ date('d/m/Y', strtotime($favorite->created_at)) }}</td>
+                            <td><i onclick="location.href='{{ route('favorite.add_or_delete', ['id' => $favorite->id, 'add' => 1, 'view' => '2']) }}'" class="btn btn-sm btn-outline-danger bi bi-trash"></i></td>
+
+                        </tr>
+
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
 
 @endsection
