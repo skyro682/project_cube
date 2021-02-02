@@ -50,7 +50,7 @@ class RessourcesController extends Controller
        /* if ($file->file('file') == null) {
             return('Impossible d\'importer le fichier.');
         }else{
-            $f = $file->file->store('public'); 
+            $f = $file->file->store('public');
         }*/
 
         $userId = Auth::user()->id;
@@ -64,7 +64,30 @@ class RessourcesController extends Controller
         $ressource->users_id = $userId;
         $ressource->save();
 
-        return redirect('/');
+        if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0)
+            {
+                $filesize = $_FILES["file"]["size"];
+
+                $maxsize = 5 * 1024 * 1024;
+                if($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
+
+                if(file_exists("upload/" . $_FILES["file"]["name"])) {
+                    echo $_FILES["file"]["name"] . " existe déjà.";
+                }
+                else
+                {
+                    move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/" . $_FILES["file"]["name"]);
+                    echo "Votre fichier a été téléchargé avec succès.";
+                    return redirect('/');
+                }
+            }
+            else
+            {
+                return redirect('/');
+            }
+        }
     }
 
     public function updateResClick($id)

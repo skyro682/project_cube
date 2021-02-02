@@ -7,7 +7,7 @@
 <div class="page-section" id="1">
     <div class="col-lg-4"> </div>
     @if(!isset($ressource))
-    <form method="POST" action="{{ route('ressources.add')}}" class="container col-lg-4">
+    <form enctype="multipart/form-data" method="POST" action="{{ route('ressources.add')}}" class="container col-lg-4">
         @else
         <form method="POST" action="{{ route('ressources.update', ['id' => $ressource->id])}}" class="container col-lg-4">
             @endif
