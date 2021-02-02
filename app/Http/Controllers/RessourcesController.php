@@ -72,11 +72,14 @@ class RessourcesController extends Controller
                 $maxsize = 5 * 1024 * 1024;
                 if($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
 
-                if(file_exists("upload/" . $_FILES["file"]["name"])) {
+                if(file_exists("uploads/" . $_FILES["file"]["name"])) {
                     echo $_FILES["file"]["name"] . " existe déjà.";
                 }
                 else
                 {
+                    if (!is_dir("uploads")) {
+                        mkdir("uploads", 0777, true);
+                    }
                     $filePath = "uploads/" . $_FILES["file"]["name"];
                     move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
                     $ressource->file_path = $filePath;
@@ -112,11 +115,14 @@ class RessourcesController extends Controller
                 $maxsize = 5 * 1024 * 1024;
                 if($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
 
-                if(file_exists("upload/" . $_FILES["file"]["name"])) {
+                if(file_exists("uploads/" . $_FILES["file"]["name"])) {
                     echo $_FILES["file"]["name"] . " existe déjà.";
                 }
                 else
                 {
+                    if (!is_dir("uploads")) {
+                        mkdir("uploads", 0777, true);
+                    }
                     $filePath = "uploads/" . $_FILES["file"]["name"];
                     move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
                     $ressource->file_path = $filePath;
