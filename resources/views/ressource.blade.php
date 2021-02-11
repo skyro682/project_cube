@@ -27,22 +27,24 @@
         <h6 class="text-center text-uppercase">Mis à jour le : {{ date('d/m/Y', strtotime($ressource->updated_at)) }} à {{ date('h:i:s', strtotime($ressource->updated_at)) }}</h6>
 
         <!-- Section Content-->
-        <div class="row">
+        <div class="row align-content-center">
             <div class="col-lg-3"></div>
             <div class="col-lg-6 text-center">
                 <p class="lead"> {{ $ressource->content }} </p>
+
+        @if(file_exists($ressource->file_path))
+            @if($fileIsImage == TRUE)
+                <img class="fit-picture"
+                     src="{{ asset($ressource->file_path) }}"
+                     alt="image">
+            @else
+                <h6 class="text-center text-uppercase">Fichier associé</h6>
+                <a class="text-center" href="{{$ressource->file_path}}" target="_blank"">Download File</a>
+            @endif
+        @endif
             </div>
         </div>
         <br>
-
-
-        <h6 class="text-center text-uppercase">Fichier associé</h6>
-        
-        @if (Storage::disk('storage')->exists('file.jpg'))
-        <a class="text-center" href="<?php echo asset('storage/test.txt'); ?>"><?php echo asset('storage/test.txt'); ?></a>
-        @else
-        <p class="text-center text-muted">Aucun fichier</p>
-        @endif
 
         <br>
 

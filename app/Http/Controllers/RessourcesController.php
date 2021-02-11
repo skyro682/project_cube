@@ -44,6 +44,23 @@ class RessourcesController extends Controller
         }
     }
 
+    public function isImage($filePath)
+    {
+        $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief','jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
+
+        $explodeImage = explode('.', $filePath);
+        $extension = end($explodeImage);
+
+        if(in_array($extension, $imageExtensions))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
     public function addResClick(Request $file)
     {
         //dd($file);
@@ -158,14 +175,15 @@ class RessourcesController extends Controller
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
         $count_view = ($ressource->count_view)+1;
         $ressource->update(['count_view' => $count_view]);
+        $fileIsImage = $this->isImage($ressource->file_path);
         if (Auth::user()) {
             $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         }
         $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
         if (Auth::user()) {
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'favoris' => $favoris]);
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileIsImage' => $fileIsImage, 'favoris' => $favoris]);
         } else {
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments]);
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileIsImage' => $fileIsImage]);
         }
     }
 
