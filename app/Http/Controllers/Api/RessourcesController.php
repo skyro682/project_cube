@@ -19,7 +19,7 @@ class RessourcesController extends Controller
      */
     public function index()
     {
-        $ressources = Ressources::with(['Users:id,username', 'Category', 'Zone'])->orderBy('created_at', 'DESC')->get();
+        $ressources = Ressources::with(['Users:id,username', 'Category', 'Zone'])->orderBy('created_at', 'DESC')->paginate(5);
         return response([ 'ressources' => ApiResource::collection($ressources), 'message' => 'Retrieved successfully'], 200);
     }
 
