@@ -15,6 +15,7 @@ class Ressources extends Model
 
     protected $fillable = [
         'name',
+        'content',
         'count_view',
         'file_path',
     ];
