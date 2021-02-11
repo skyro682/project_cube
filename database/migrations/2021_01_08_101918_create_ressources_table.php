@@ -17,7 +17,7 @@ class CreateRessourcesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('content');
-            $table->string('ressource_url')->nullable();
+            $table->string('file_path')->nullable();
             $table->integer('count_view');
             $table->unsignedBigInteger('zone_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
