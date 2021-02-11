@@ -27,7 +27,6 @@ class RessourcesController extends Controller
         $zones = Zone::orderBy('id', 'ASC')->get();
         $categories = Category::orderBy('id', 'ASC')->get();
         return view('addRessource', ['zones' => $zones, 'categories'  => $categories]);
-        //return view('addRessource');
     }
 
     public function updateRes($id) // affiche page new ressource en mode update
@@ -63,12 +62,6 @@ class RessourcesController extends Controller
 
     public function addResClick(Request $file)
     {
-        //dd($file);
-       /* if ($file->file('file') == null) {
-            return('Impossible d\'importer le fichier.');
-        }else{
-            $f = $file->file->store('public');
-        }*/
         $userId = Auth::user()->id;
 
         $ressource = new Ressources();
@@ -78,11 +71,12 @@ class RessourcesController extends Controller
         $ressource->zone_id = request('zone_id');
         $ressource->category_id = request('category_id');
         $ressource->users_id = $userId;
+        $ressource->file_path = request('file_path');
 
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0)
+            if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0 && ($_FILES != NULL))
             {
                 $filesize = $_FILES["file"]["size"];
 
@@ -97,11 +91,11 @@ class RessourcesController extends Controller
                     if (!is_dir("uploads")) {
                         mkdir("uploads", 0777, true);
                     }
-                    $filePath = "uploads/" . $_FILES["file"]["name"];
-                    move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
-                    $ressource->file_path = $filePath;
                     echo "Votre fichier a été téléchargé avec succès.";
                 }
+                $filePath = "uploads/" . $_FILES["file"]["name"];
+                move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
+                $ressource->file_path = $filePath;
             }
         }
 
@@ -114,18 +108,19 @@ class RessourcesController extends Controller
     {
         $userId = Auth::user()->id;
 
-        $ressource = new Ressources();
+        $ressource = Ressources::find($id);
         $ressource->name = request('name');
         $ressource->content = request('content');
         $ressource->count_view = 0;
         $ressource->zone_id = request('zone_id');
         $ressource->category_id = request('category_id');
         $ressource->users_id = $userId;
+        $ressource->file_path = request('file_path');
 
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0)
+            if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0 && ($_FILES != NULL))
             {
                 $filesize = $_FILES["file"]["size"];
 
@@ -140,11 +135,11 @@ class RessourcesController extends Controller
                     if (!is_dir("uploads")) {
                         mkdir("uploads", 0777, true);
                     }
-                    $filePath = "uploads/" . $_FILES["file"]["name"];
-                    move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
-                    $ressource->file_path = $filePath;
                     echo "Votre fichier a été téléchargé avec succès.";
                 }
+                $filePath = "uploads/" . $_FILES["file"]["name"];
+                move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
+                $ressource->file_path = $filePath;
             }
         }
 
@@ -176,14 +171,16 @@ class RessourcesController extends Controller
         $count_view = ($ressource->count_view)+1;
         $ressource->update(['count_view' => $count_view]);
         $fileIsImage = $this->isImage($ressource->file_path);
+        $explodeImage = explode('uploads/', $ressource->file_path);
+        $fileName = end($explodeImage);
         if (Auth::user()) {
             $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         }
         $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
         if (Auth::user()) {
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileIsImage' => $fileIsImage, 'favoris' => $favoris]);
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileName' => $fileName, 'fileIsImage' => $fileIsImage, 'favoris' => $favoris]);
         } else {
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileIsImage' => $fileIsImage]);
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileName' => $fileName, 'fileIsImage' => $fileIsImage]);
         }
     }
 

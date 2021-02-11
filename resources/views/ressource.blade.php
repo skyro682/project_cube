@@ -39,7 +39,7 @@
                      alt="image">
             @else
                 <h6 class="text-center text-uppercase">Fichier associé</h6>
-                <a class="text-center" href="{{$ressource->file_path}}" target="_blank"">Download File</a>
+                <a class="text-center" href="/{{$ressource->file_path}}" target="_blank">{{ $fileName }}</a>
             @endif
         @endif
             </div>
