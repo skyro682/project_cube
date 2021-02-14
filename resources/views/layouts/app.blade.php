@@ -52,7 +52,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Statistiques</a>
+                                <a class="dropdown-item" href="{{ Route('stat') }}">Statistiques</a>
                                 <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
                                 <div class="dropdown-menu">
                                 </div>
@@ -93,6 +93,7 @@
 
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
+                                <a class="dropdown-item" href="{{ Route('messagerie') }}">Messagerie</a>
                                 <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Mes favoris</a>
 
 

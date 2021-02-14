@@ -20,6 +20,7 @@ Route::get('/search', [App\Http\Controllers\SearchController::class, 'searchRes'
 Route::get('/advancedSearch', [App\Http\Controllers\AdvancedSearchController::class, 'searchRes'])->name('advancedSearch');
 Route::get('/contact', [App\Http\Controllers\OtherController::class, 'contact'])->name('contact');
 Route::get('/help', [App\Http\Controllers\OtherController::class, 'help'])->name('help');
+Route::get('/stat', [App\Http\Controllers\OtherController::class, 'stat'])->name('stat');
 Route::get('/ressource/{id}', [App\Http\Controllers\RessourcesController::class, 'viewRes'])->name('viewRes');
 
 // Route Utilisateur Connecter
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function(){
     Route::prefix('profile')->group(function(){
 
         Route::get('/', [App\Http\Controllers\UsersController::class, 'profile'])->name('profile');
+        Route::get('/messagerie', [App\Http\Controllers\UsersController::class, 'messagerie'])->name('messagerie');
         Route::post('/edit/{section}', [App\Http\Controllers\UsersController::class, 'editProfile'])->name('editProfile');
         Route::get('/delete', [App\Http\Controllers\UsersController::class, 'deleteProfile'])->name('deleteProfile');
 

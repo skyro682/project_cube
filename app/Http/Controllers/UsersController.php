@@ -112,4 +112,10 @@ class UsersController extends Controller
         return redirect(Route('users.home'));
 
     }
+
+    public function messagerie()
+    {
+        return view('messagerie');
+    }
+
 }
