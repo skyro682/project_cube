@@ -32,17 +32,15 @@
             <div class="col-lg-6 text-center">
                 <p class="lead"> {{ $ressource->content }} </p>
 
-        <!-- Section File-->
-        @if(file_exists($ressource->file_path))
-            @if($fileIsImage == TRUE)
-                <img class="fit-picture"
-                     src="{{ asset($ressource->file_path) }}"
-                     alt="image">
-            @else
+                <!-- Section File-->
+                @if(file_exists($ressource->file_path))
+                @if($fileIsImage == TRUE)
+                <img class="fit-picture" src="{{ asset($ressource->file_path) }}" alt="image">
+                @else
                 <h6 class="text-center text-uppercase">Fichier associé</h6>
                 <a class="text-center" href="{{asset($ressource->file_path)}}" target="_blank">{{ $fileName }}</a>
-            @endif
-        @endif
+                @endif
+                @endif
             </div>
         </div>
         <br>
@@ -142,6 +140,19 @@
         @endauth
         <hr>
         @endforeach
+        <!-- Onglet-->
+        <div class="" id="">
+            <div class="col-lg-4"> </div>
+            <div class="container col-lg-4 text-center mt-4">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4 text-center">
+                        {{ $comments->links() }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </section>
 <br>

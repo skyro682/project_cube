@@ -163,7 +163,7 @@ class RessourcesController extends Controller
         if (Auth::user()) {
             $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         }
-        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
+        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->Paginate(10);
         if (Auth::user()) {
             return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileName' => $fileName, 'fileIsImage' => $fileIsImage, 'favoris' => $favoris]);
         } else {
@@ -201,7 +201,7 @@ class RessourcesController extends Controller
         $userId = Auth::user();
 
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
-        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
+        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->Paginate(10);
         $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         $commentEdit = Comments::with('Users', 'Ressources', 'Ressources.Users')->find($id_com);
 
