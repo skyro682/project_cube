@@ -9,7 +9,7 @@
     @if(!isset($ressource))
     <form enctype="multipart/form-data" method="POST" action="{{ route('ressources.add')}}" class="container col-lg-4">
         @else
-        <form method="POST" action="{{ route('ressources.update', ['id' => $ressource->id])}}" class="container col-lg-4">
+        <form enctype="multipart/form-data" method="POST" action="{{ route('ressources.update', ['id' => $ressource->id])}}" class="container col-lg-4">
             @endif
             @csrf
             <br>
@@ -50,9 +50,19 @@
             <textarea class="form-control" rows="5" id="comment" name="content">{{ (isset($ressource)) ? $ressource->content : '' }}</textarea>
             <br>
             <!-- file -->
+            @if(isset($ressource))
+                @if(file_exists($ressource->file_path))
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="name_add_post">Source</span>
+                        </div>
+                        <input name="old_file" value="{{ $ressource->file_path }}" type="text" class="form-control"  aria-label="titre" aria-describedby="name">
+                    </div>
+                @endif
+            @endif
             <div class="custom-file mb-3">
                 <input type="file" class="custom-file-input" id="file" name="file">
-                <label class="custom-file-label" for="file">Choisir un fichier</label>
+                <label class="custom-file-label" for="file">{{ (isset($ressource)) ? 'Modifier la source' : 'Choisir un fichier' }}</label>
             </div>
 
             <script>

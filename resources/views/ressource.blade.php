@@ -32,6 +32,7 @@
             <div class="col-lg-6 text-center">
                 <p class="lead"> {{ $ressource->content }} </p>
 
+        <!-- Section File-->
         @if(file_exists($ressource->file_path))
             @if($fileIsImage == TRUE)
                 <img class="fit-picture"
@@ -123,8 +124,8 @@
         <!-- section 1 Section Heading-->
         <p>{{ $comment->content }} | {{ $comment->created_at }} | {{ $comment->users->username }}</p> <!-- com 1-->
         @auth
-        @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-        <a class="text-secondary" href="{{ route('ressources.viewUpdateComment', ['id' => $ressource->id, 'id_com' => $comment->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" style="cursor:  pointer;" data-toggle="modal" data-target="#deleteComModal{{$comment->id}}" onclick="">supprimer</a>
+        @if(Auth::user()->id == $comment->users_id || Auth::user()->grade_id > 1)
+        <a class="text-secondary" href="{{ route('ressources.viewUpdateComment', ['id' => $ressource->id, 'id_com' => $comment->id]) }}">{{ Auth::user()->id == $comment->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" style="cursor:  pointer;" data-toggle="modal" data-target="#deleteComModal{{$comment->id}}" onclick="">supprimer</a>
 
         <div class="modal fade" id="deleteComModal{{$comment->id}}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
