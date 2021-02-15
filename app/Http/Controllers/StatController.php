@@ -34,34 +34,52 @@ class StatController extends Controller
         $userId = Auth::user();
 
         // category
-        $categories =  Ressources::select('Category_id', Ressources::raw('count(*) as total'))
-                 ->groupBy('Category_id')
+        $categories =  Ressources::select('category_id', Ressources::raw('count(*) as total'))
+                 ->with('Category')
+                 ->groupBy('category_id')
                  ->take(10)
                  ->get();
-        
-        $categories_name = Category::get();
 
         // Zone
-        $regions =  Ressources::select('Zone_id', Ressources::raw('count(*) as total'))
-                 ->groupBy('Zone_id')
+        $regions =  Ressources::select('zone_id', Ressources::raw('count(*) as total'))
+                 ->groupBy('zone_id')
                  ->take(10)
                  ->get();
 
-        $regions_name = Zone::get();
-
         // Utilisateur nbr ressource
-        $utilisateursResAdd =  Ressources::select('users_id', Ressources::raw('count(*) as total'))
+        $utilisateursResAdd = Ressources::select('users_id', Ressources::raw('count(*) as total'))
                  ->with('Users')
                  ->groupBy('users_id')
                  ->take(10)
                  ->get();
 
+        // ressource nbr vue
+        $utilisateursCount_view = Ressources::orderByDesc('count_view')
+                 ->take(10)
+                 ->get();
+
+        // ressource nbr de commentaire
+        $comments = Comments::select('ressources_id', Ressources::raw('count(*) as total'))
+        ->with('Ressources')
+        ->groupBy('ressources_id')
+        ->take(10)
+        ->get();
+        
+        // utilisateur nbr de commentaire
+        $commentsUsers = Comments::select('users_id', Ressources::raw('count(*) as total'))
+        ->with('Users')
+        ->groupBy('users_id')
+        ->take(10)
+        ->get();
+
         return view('stat', [
             'categories' => $categories, 
-            'categories_name' => $categories_name, 
             'regions' => $regions, 
-            'regions_name' => $regions_name,
-            'utilisateursResAdd' => $utilisateursResAdd
+            'utilisateursResAdd' => $utilisateursResAdd,
+            'utilisateursCount_view' => $utilisateursCount_view,
+            'commentsUsers' => $commentsUsers,
+            'comments' => $comments
+            
         ]); 
     }
     
