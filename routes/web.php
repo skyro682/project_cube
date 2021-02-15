@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/statGlobal', [App\Http\Controllers\StatController::class, 'statGlobal'])->name('statGlobal');
         });
 
-        
-        
+
+
     });
 });

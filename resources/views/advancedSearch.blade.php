@@ -77,9 +77,9 @@
                     <th scope="col"></th>
                     <th scope="col">Date ajout</th>
                     <th scope="col">Titre ressource</th>
+                    <th scope="col">Catégorie ressource</th>
                     <th scope="col">Nom utilisateur</th>
                     <th scope="col">Date création ressource</th>
-                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,9 +91,9 @@
                         <td><i onclick="location.href='{{ route('viewRes', ['id' => $favorite->id]) }}'" class="btn btn-sm btn-outline-info bi bi-search"></i></td>
                         <td>{{ date('d/m/Y', strtotime($favorite->created_at)) }}</td>
                         <td>{{ $favorite->name}}</td>
+                        <td>{{ $favorite->category->name}}</td>
                         <td>{{ $favorite->Users->username }}</td>
                         <td>{{ date('d/m/Y', strtotime($favorite->created_at)) }}</td>
-                        <td><i onclick="location.href='{{ route('favorite.add_or_delete', ['id' => $favorite->id, 'add' => 1, 'view' => '2']) }}'" class="btn btn-sm btn-outline-danger bi bi-trash"></i></td>
 
                     </tr>
 
