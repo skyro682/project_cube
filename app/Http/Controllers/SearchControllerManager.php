@@ -13,16 +13,16 @@ class SearchControllerManager extends Controller
     public function queryMake($query, $contentQuery, $selectedCategory, $selectedRegion, $order)
     {
         $whereArray = array();
-        $hasTarget = false;
+        //$hasTarget = false;
         if ((isset($query)) and ($query != ''))
         {
             array_push($whereArray, ['name', 'like', '%'.$query.'%' ]);
-            $hasTarget = true;
+        //    $hasTarget = true;
         }
         if ((isset($contentQuery)) and ($contentQuery != ''))
         {
             array_push($whereArray, ['content', 'like', '%'.$contentQuery.'%' ]);
-            $hasTarget = true;
+        //    $hasTarget = true;
         }
         if ((isset($selectedCategory)) and ($selectedCategory != '') and ($selectedCategory != 'all'))
         {
@@ -33,7 +33,6 @@ class SearchControllerManager extends Controller
             array_push($whereArray, ['zone_id', '=', $selectedRegion ]);
         }
 
-        //$processing_query = Ressources::with('id', 'name', 'content', 'count_view', 'zone_id', 'category_id', 'users_id', 'created_at', 'updated_at');
         $processing_query = new Ressources;
         $processing_query = $processing_query->Where($whereArray);
 
@@ -66,14 +65,14 @@ class SearchControllerManager extends Controller
 
         $processing_query = $processing_query->paginate(10);
 
-        if ($hasTarget == true)
-        {
+        //if ($hasTarget == true)
+        //{
             return $processing_query;
-        }
-        else
-        {
-            return NULL;
-        }
+        //}
+        //else
+        //{
+        //    return NULL;
+        //}
     }
 
     /**
