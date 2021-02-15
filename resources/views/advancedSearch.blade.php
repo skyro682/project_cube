@@ -24,10 +24,12 @@
                             </div>
                             <select name="region" class="custom-select" id="inputGroupSelect01">
                                 <option value="{{ (isset($ressource)) ? $ressource->region->id : '' }}">{{ (isset($ressource)) ? $ressource->region->name : 'Choisir une option...' }}</option>
-                                @foreach ($regionsList as $region)
-
-                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
-
+                                @foreach ($regionsList as $regionKey => $region)
+                                    @if($region->id == $_GET['region'])
+                                        <option selected="selected" value="{{ $region->id }}">{{ $region->name }}</option>
+                                    @else
+                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -37,10 +39,12 @@
                             </div>
                             <select name="category" class="custom-select" id="inputGroupSelect01">
                                 <option value="{{ (isset($ressource)) ? $ressource->$category->id : '' }}">{{ (isset($ressource)) ? $ressource->$category->name : 'Choisir une option...' }}</option>
-                                @foreach ($categoriesList as $category)
-
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-
+                                @foreach ($categoriesList as $categoryKey => $category)
+                                    @if($category->id == $_GET['category'])
+                                        <option selected="selected" value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @else
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -49,12 +53,13 @@
                                 <label class="input-group-text" for="inputGroupSelect01">Ordre</label>
                             </div>
                             <select name="order" class="custom-select" id="inputGroupSelect01">
-                                <option value=0>{{ "Derniers créés d'abord" }}</option>
-                                <option value=1>{{ "Premiers créés d'abord" }}</option>
-                                <option value=2>{{ "Premiers modifiés d'abord" }}</option>
-                                <option value=3>{{ "Derniers modifiés d'abord" }}</option>
-                                <option value=4>{{ "Les plus vus d'abord" }}</option>
-                                <option value=5>{{ "Les moins vus d'abord" }}</option>
+                                @foreach ($ordersList as $orderKey => $order)
+                                    @if($order['id'] == $_GET['order'])
+                                        <option selected="selected" value="{{ $order['id'] }}">{{ $order['name'] }}</option>
+                                    @else
+                                        <option value="{{ $order['id'] }}">{{ $order['name'] }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                         <br>
