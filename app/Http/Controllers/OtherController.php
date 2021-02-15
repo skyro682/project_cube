@@ -29,9 +29,5 @@ class OtherController extends Controller
     {
         return view('help');
     }
-    public function stat()
-    {
-        return view('stat');
-    }
     
 }

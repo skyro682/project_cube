@@ -21,6 +21,7 @@
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 
@@ -52,7 +53,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ Route('stat') }}">Statistiques</a>
+                                <a class="dropdown-item" href="{{ Route('stat.statGlobal') }}">Statistiques</a>
                                 <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
                                 <div class="dropdown-menu">
                                 </div>
