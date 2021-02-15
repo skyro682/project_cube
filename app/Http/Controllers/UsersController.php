@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Events\MessageSent;
 
 class UsersController extends Controller
 {
@@ -136,7 +137,7 @@ class UsersController extends Controller
     /**
      * Persist message to database
      *
-     * @param Request $request
+     * @param  Request $request
      * @return Response
      */
     public function sendMessage(Request $request)
@@ -146,6 +147,8 @@ class UsersController extends Controller
         $message = $user->messages()->create([
             'message' => $request->input('message')
         ]);
+
+        broadcast(new MessageSent($user, $message))->toOthers();
 
         return ['status' => 'Message Sent!'];
     }
