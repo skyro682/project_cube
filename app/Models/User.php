@@ -71,4 +71,9 @@ class User extends Authenticatable
     public function Grade(){
         return $this->belongsTo(Grade::class);
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

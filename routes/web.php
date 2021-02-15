@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/', [App\Http\Controllers\UsersController::class, 'profile'])->name('profile');
         Route::get('/messagerie', [App\Http\Controllers\UsersController::class, 'messagerie'])->name('messagerie');
+        Route::get('/messagerie/messages', [UsersController::class, 'fetchMessages']);
+        Route::post('/messagerie/messages', [UsersController::class, 'sendMessage']);
         Route::post('/edit/{section}', [App\Http\Controllers\UsersController::class, 'editProfile'])->name('editProfile');
         Route::get('/delete', [App\Http\Controllers\UsersController::class, 'deleteProfile'])->name('deleteProfile');
     });
