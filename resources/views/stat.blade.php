@@ -8,12 +8,12 @@
     <h1 class="text-center text-uppercase mb-5">Page Statistique</h1>
 
     <div class="col-lg-9-center">
-        <div class="row mt-3 mb-3">
+        <div class="row justify-content-md-center mt-3 mb-3 center">
             <div id="chart_categorie"></div>
             <div id="chart_region"></div>
             <div id="chart_users_nbr_res"></div>
         </div>
-        <div class="row mt-3 mb-3">
+        <div class="row justify-content-md-center mt-3 mb-3">
             <div id="chart_users_nbr_view"></div>
             <div id="comments"></div>
             <div id="commentsUsers"></div>
