@@ -34,12 +34,8 @@
 
                 <!-- Section File-->
                 @if(file_exists($ressource->file_path))
-                @if($fileIsImage == TRUE)
-                <img class="fit-picture" src="{{ asset($ressource->file_path) }}" alt="image">
-                @else
-                <h6 class="text-center text-uppercase">Fichier associé</h6>
-                <a class="text-center" href="{{asset($ressource->file_path)}}" target="_blank">{{ $fileName }}</a>
-                @endif
+                        <h6 class="text-center text-uppercase">Fichier associé</h6>
+                        <a class="text-center" href="{{asset($ressource->file_path)}}" target="_blank">{{ $fileName }}</a>
                 @endif
             </div>
         </div>
