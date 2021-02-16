@@ -1,11 +1,14 @@
 <?php
 session_start();
 
-   $con = mysqli_connect('localhost','root');
-   	// if($con){
-   	// 	echo"connection";
-   	// }
-   	mysqli_select_db($con,'quizdb');
+if(!isset($_SESSION['username'])){
+  header('location:index.php');
+}
+
+     
+$con = mysqli_connect('localhost','root');
+  
+mysqli_select_db($con,'ril_project_1');
    ?>
 <!DOCTYPE html>
 <html>

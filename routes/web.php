@@ -18,10 +18,12 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\RessourcesController::class, 'listAll'])->name('home');
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
 Route::get('/ressource/{id}', [App\Http\Controllers\RessourcesController::class, 'viewRes'])->name('viewRes');
-Route::get('/game', [App\Http\Controllers\GameController::class, 'game'])->name('game');
+
 
 // Route Utilisateur Connecter
 Route::middleware('auth')->group(function(){
+Route::get('/game', [App\Http\Controllers\GameController::class, 'game'])->name('game');
+Route::post('/checked', [App\Http\Controllers\GameController::class, 'checked'])->name('checked');
 
     // Route ressource
     Route::prefix('ressources')->name('ressources.')->group(function(){

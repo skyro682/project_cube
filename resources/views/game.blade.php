@@ -55,7 +55,7 @@
                   <p class="card-header text-center" > Vous devez sélctionner qu'une seul réponse par question. <i class="fas fa-thumbs-up"></i>	 </p>
                </div>
                <br>
-               <form action="checked..blade.php" method="post">
+               <form action="{{route('checked')}}" method="post">
                   <?php
                      for($i=1;$i<6;$i++){
                      $l = 1;
@@ -93,12 +93,12 @@
                   </div>
 
                   <br>
-                  <input type="submit" name="submit" Value="Submit" class="btn btn-success m-auto d-block" /> <br>
+                  <input type="submit" name="submit" Value="Valider" class="btn btn-success m-auto d-block" /> <br>
                </form>
                <p id="letc"></p>
             </div>
             <br>
-            <a href="logout.php" class="btn btn-primary d-block m-auto text-white" > Logout </a> <br>
+     
          </div>
          <br>
          <footer>

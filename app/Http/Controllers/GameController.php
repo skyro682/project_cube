@@ -34,5 +34,9 @@ class GameController extends Controller
         return view('game');
     }
 
+    public function checked()
+    {
+        return view('checked');
+    }
 
 }
