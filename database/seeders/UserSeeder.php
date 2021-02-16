@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {        
-        DB::table('Users')->delete();
+        DB::table('users')->delete();
         $users = [
             [
                 'username' => 'utilisateur',
@@ -50,6 +50,6 @@ class UserSeeder extends Seeder
                 'grade_id' => 4
             ],
         ];
-        DB::table('Users')->insert($users);
+        DB::table('users')->insert($users);
     }
 }
