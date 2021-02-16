@@ -68,6 +68,14 @@ Route::middleware('auth')->group(function () {
             Route::post('/grade', [App\Http\Controllers\UsersController::class, 'editGrade'])->name('grade');
             Route::get('/delete/{id}', [App\Http\Controllers\UsersController::class, 'deleteUser'])->name('delete');
         });
+
+
+
+    });
+
+    // Route Super Admin
+    Route::middleware('admin')->group(function () {
+
         Route::prefix('stat')->name('stat.')->group(function () {
             Route::get('/statGlobal', [App\Http\Controllers\StatController::class, 'statGlobal'])->name('statGlobal');
         });
