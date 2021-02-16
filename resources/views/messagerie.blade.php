@@ -7,10 +7,11 @@
     <h1 class="text-center text-uppercase mb-5">Messagerie</h1>
 
     <div class="col-lg-8-center">
-        <h3 class="text-center" id="wipM">Work in progress</h3>
+        <h3 class="text-center" id="wipM">En cours de développement</h3>
     </div>
     <br>
 
+    <!--
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -30,7 +31,7 @@
             </div>
         </div>
     </div>
-
+    -->
 
 </div>
 @endsection
