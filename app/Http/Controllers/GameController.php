@@ -47,6 +47,8 @@ class GameController extends Controller
             if($question->ReponseID == $reponse[$i + 1]) $correctAns++;
         }
 
+        $data['questions'] = $questions;
+        $data['answers'] = $reponse;
         $data['Resultans'] = $correctAns;
         $data['answerNb'] = count($_POST['quizcheck']);
 

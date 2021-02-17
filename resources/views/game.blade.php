@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div>
 
    <div class=" col-lg-12 text-center">
