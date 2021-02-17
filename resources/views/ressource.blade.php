@@ -92,7 +92,7 @@
                     @endif
                     @csrf
                     <label for="comment">Votre commentaire:</label>
-                    <textarea class="form-control" rows="5" id="comment" name="comment">{{ (isset($edit) && isset($commentEdit) && $edit == 1) ? $commentEdit->content : ''}}</textarea>
+                    <textarea required class="form-control" rows="5" id="comment" name="comment">{{ (isset($edit) && isset($commentEdit) && $edit == 1) ? $commentEdit->content : ''}}</textarea>
                     <div class="float-right mt-2">
                         @if(isset($edit) && isset($commentEdit) && $edit == 1)
                         <button type="submit" class="btn btn-info">Modifier</button>

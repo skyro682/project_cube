@@ -17,7 +17,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="name_add_post">Titre</span>
                 </div>
-                <input name="name" type="text" class="form-control" placeholder="Exemple : 'Aide pour les personnes sans abris'" aria-label="titre" aria-describedby="name" value="{{ (isset($ressource)) ? $ressource->name : '' }}">
+                <input required name="name" type="text" class="form-control" placeholder="Exemple : 'Aide pour les personnes sans abris'" aria-label="titre" aria-describedby="name" value="{{ (isset($ressource)) ? $ressource->name : '' }}">
             </div>
             <!-- Zone -->
             <div class="input-group mb-3">
@@ -47,7 +47,7 @@
             </div>
             <!-- content -->
             <label for="comment">Details :</label>
-            <textarea class="form-control" rows="5" id="comment" name="content">{{ (isset($ressource)) ? $ressource->content : '' }}</textarea>
+            <textarea required class="form-control" rows="5" id="comment" name="content">{{ (isset($ressource)) ? $ressource->content : '' }}</textarea>
             <br>
             <!-- file -->
             @if(isset($ressource))
