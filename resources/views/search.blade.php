@@ -5,50 +5,18 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <form action="{{ route('search') }}" method="get">
-                    <div class="form-group">
-                        <label for="query">Rechercher un post</label>
-                        <input type="text" class="form-control" id="query" name="query"  placeholder="Par nom"
+                    <div class="input-group">
+
+                        <input type="text" class="form-control mr-1" id="query" name="query"  placeholder="Rechercher"
                         @if(isset($_GET['query']))
                             value="{{ $_GET['query'] }}"
                         @endif>
-                        <input type="text" class="form-control" id="query" name="contentQuery"  placeholder="Par contenu"
-                               @if(isset($_GET['contentQuery']))
-                               value="{{ $_GET['contentQuery'] }}"
-                            @endif>
+
                         <br>
-                        <label for="categorySelect">Catégorie</label>
-                        <select class="form-control" id="categorySelect" name="category">
-                            <option value="all">Toutes</option>
-                            @foreach($categoriesList as $category)
-                                @if(isset($category['id']))
-                                    <option value={{ $category['id'] }}>{{ $category['name'] }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                        <br>
-                        <label for="regionSelect">Région</label>
-                        <select class="form-control" id="regionSelect" name="region">
-                            <option value="all">Toutes</option>
-                            @foreach($regionsList as $region)
-                                @if(isset($region['id']))
-                                    <option value={{ $region['id'] }}>{{ $region['name'] }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                        <br>
-                        <label for="orderSelect">Affichage des posts</label>
-                        <select class="form-control" id="orderSelect" name="order">
-                            <option value=0>Derniers créés d'abord</option>
-                            <option value=1>Premiers créés d'abord</option>
-                            <option value=2>Premiers modifiés d'abord</option>
-                            <option value=3>Derniers modifiés d'abord</option>
-                            <option value=2>Les plus vus d'abord</option>
-                            <option value=3>Les moins vus d'abord</option>
-                        </select>
-                        <br>
-                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                        <button type="submit" class="btn btn-info mr-1">Rechercher</button>
+                        <a class="btn btn-info" href="{{ route('advancedSearch') }}" role="button">Recherche Avancée</a>
                     </div>
                 </form>
             </div>
@@ -56,20 +24,40 @@
     </div>
 
     @if ($searchResults != NULL)
-        @foreach($searchResults as $postResult)
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-header">{{ $postResult['name'] }}</div>
-                        <div class="card-body">
-                            <p class ="card-text">{{ $postResult['content'] }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="container col-10 mt-5 mb-5">
+
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"></th>
+                        <th scope="col">Date ajout</th>
+                        <th scope="col">Titre ressource</th>
+                        <th scope="col">Catégorie ressource</th>
+                        <th scope="col">Nom utilisateur</th>
+                        <th scope="col">Date création ressource</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($searchResults as $favoriteKey => $favorite)
+
+                        <tr>
+
+                            <th scope="row">{{ $favoriteKey+1 }}</th>
+                            <td><i onclick="location.href='{{ route('viewRes', ['id' => $favorite->id]) }}'" class="btn btn-sm btn-outline-info bi bi-search"></i></td>
+                            <td>{{ date('d/m/Y', strtotime($favorite->created_at)) }}</td>
+                            <td>{{ $favorite->name}}</td>
+                            <td>{{ $favorite->category->name}}</td>
+                            <td>{{ $favorite->Users->username }}</td>
+                            <td>{{ date('d/m/Y', strtotime($favorite->created_at)) }}</td>
+
+                        </tr>
+
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        @endforeach
     @endif
 
 @endsection

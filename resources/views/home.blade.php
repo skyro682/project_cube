@@ -12,9 +12,9 @@
         <h5 class="text-center text-uppercase">{{ $ressource->Zone->name }}</h5>
         <h5 class="text-center text-uppercase">{{ $ressource->Category->name }}</h5>
 
-        <h6 class="text-center text-uppercase">Post de : {{ $ressource->Users->username }}</h6>
-        <h6 class="text-center text-uppercase">écrit le : {{ $ressource->created_at }}</h6>
-        <h6 class="text-center text-uppercase">Mise à jour le : {{ $ressource->updated_at }}</h6>
+        <h6 class="text-center text-uppercase">Post de : {{ $ressource->Users->username ?? 'Utilisateur Supprimer' }}</h6>
+        <h6 class="text-center text-uppercase">écrit le : {{ date('d/m/Y', strtotime($ressource->created_at)) }} à {{ date('h:i:s', strtotime($ressource->created_at)) }}</h6>
+        <h6 class="text-center text-uppercase">Mis à jour le : {{ date('d/m/Y', strtotime($ressource->updated_at)) }} à {{ date('h:i:s', strtotime($ressource->updated_at)) }}</h6>
 
         <!-- more Section-->
         <div class="text-center mt-4">
@@ -24,7 +24,7 @@
         <div class="text-center  mt-4">
             @auth
             @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-            <a href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteResModal{{$ressource->id}}">supprimer</a>
+            <a class="text-secondary" href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" data-toggle="modal" style="cursor:  pointer;" data-target="#deleteResModal{{$ressource->id}}">supprimer</a>
 
             <div class="modal fade" id="deleteResModal{{$ressource->id}}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">

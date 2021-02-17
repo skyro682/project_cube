@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\http\Request;
 use App\Models\Ressources;
 use App\Models\Comments;
 use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\User;
 use App\Models\Zone;
-
 use Illuminate\Support\Facades\Auth;
 
 class RessourcesController extends Controller
@@ -26,7 +27,6 @@ class RessourcesController extends Controller
         $zones = Zone::orderBy('id', 'ASC')->get();
         $categories = Category::orderBy('id', 'ASC')->get();
         return view('addRessource', ['zones' => $zones, 'categories'  => $categories]);
-        //return view('addRessource');
     }
 
     public function updateRes($id) // affiche page new ressource en mode update
@@ -43,7 +43,21 @@ class RessourcesController extends Controller
         }
     }
 
-    public function addResClick()
+    public function isImage($filePath)
+    {
+        $imageExtensions = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'svgz', 'cgm', 'djv', 'djvu', 'ico', 'ief', 'jpe', 'pbm', 'pgm', 'pnm', 'ppm', 'ras', 'rgb', 'tif', 'tiff', 'wbmp', 'xbm', 'xpm', 'xwd'];
+
+        $explodeImage = explode('.', $filePath);
+        $extension = end($explodeImage);
+
+        if (in_array($extension, $imageExtensions)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function addResClick(Request $file)
     {
         $userId = Auth::user()->id;
 
@@ -54,6 +68,28 @@ class RessourcesController extends Controller
         $ressource->zone_id = request('zone_id');
         $ressource->category_id = request('category_id');
         $ressource->users_id = $userId;
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0 && ($_FILES != NULL)) {
+                $filesize = $_FILES["file"]["size"];
+
+                $maxsize = 5 * 1024 * 1024;
+                if ($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
+
+                if (file_exists("uploads/" . $_FILES["file"]["name"])) {
+                    echo $_FILES["file"]["name"] . " existe déjà.";
+                } else {
+                    if (!is_dir("uploads")) {
+                        mkdir("uploads", 0777, true);
+                    }
+                    echo "Votre fichier a été téléchargé avec succès.";
+                }
+                $filePath = "uploads/" . $_FILES["file"]["name"];
+                move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
+                $ressource->file_path = $filePath;
+            }
+        }
+
         $ressource->save();
 
         return redirect('/');
@@ -64,14 +100,37 @@ class RessourcesController extends Controller
         $userId = Auth::user()->id;
 
         $ressource = Ressources::find($id);
-        if ($ressource->users_id == $userId) {
-            $ressource->name = request('name');
-            $ressource->content = request('content');
-            $ressource->count_view = 0;
-            $ressource->zone_id = request('zone_id');
-            $ressource->category_id = request('category_id');
-            $ressource->save();
+        $ressource->name = request('name');
+        $ressource->content = request('content');
+        $ressource->count_view = 0;
+        $ressource->zone_id = request('zone_id');
+        $ressource->category_id = request('category_id');
+        $ressource->users_id = $userId;
+
+        //dd($_FILES);
+        if ($_FILES['file']['name'] != '') {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0 && ($_FILES != NULL)) {
+                    $filesize = $_FILES["file"]["size"];
+
+                    $maxsize = 5 * 1024 * 1024;
+                    if ($filesize > $maxsize) die("Error: La taille du fichier est supérieure à la limite autorisée.");
+
+                    if (file_exists("uploads/" . $_FILES["file"]["name"])) {
+                        echo $_FILES["file"]["name"] . " existe déjà.";
+                    } else {
+                        if (!is_dir("uploads")) {
+                            mkdir("uploads", 0777, true);
+                        }
+                        echo "Votre fichier a été téléchargé avec succès.";
+                    }
+                    $filePath = "uploads/" . $_FILES["file"]["name"];
+                    move_uploaded_file($_FILES["file"]["tmp_name"], $filePath);
+                    $ressource->file_path = $filePath;
+                }
+            }
         }
+        $ressource->save();
 
         return redirect('/');
     }
@@ -81,7 +140,9 @@ class RessourcesController extends Controller
         $userId = Auth::user();
 
         $ressource = Ressources::find($id);
+        $favorites = Favorite::where('ressources_id', $id);
         if ($ressource->users_id == $userId->id || $userId->grade_id > 1) {
+            $favorites->delete();
             $ressource->delete();
         }
 
@@ -94,17 +155,20 @@ class RessourcesController extends Controller
     {
         $userId = Auth::user();
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
-        if(Auth::user()) {
+        $count_view = ($ressource->count_view) + 1;
+        $ressource->update(['count_view' => $count_view]);
+        $fileIsImage = $this->isImage($ressource->file_path);
+        $explodeImage = explode('uploads/', $ressource->file_path);
+        $fileName = end($explodeImage);
+        if (Auth::user()) {
             $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         }
-        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
-        if(Auth::user()) {
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'favoris' => $favoris]);
+        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->Paginate(10);
+        if (Auth::user()) {
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileName' => $fileName, 'fileIsImage' => $fileIsImage, 'favoris' => $favoris]);
+        } else {
+            return view('ressource', ['ressource' => $ressource, 'comments' => $comments, 'fileName' => $fileName, 'fileIsImage' => $fileIsImage]);
         }
-        else{
-            return view('ressource', ['ressource' => $ressource, 'comments' => $comments]);   
-        }
-        
     }
 
     //----------------------------------------------------------------------------------
@@ -137,7 +201,7 @@ class RessourcesController extends Controller
         $userId = Auth::user();
 
         $ressource = Ressources::with(['Category', 'Zone', 'Users'])->find($id);
-        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->get();
+        $comments = Comments::with(['Users'])->where('ressources_id', $id)->orderBy('created_at', 'DESC')->Paginate(10);
         $favoris = Favorite::with(['Ressources', 'Users'])->where([['ressources_id', $id], ['users_id', $userId->id]])->get();
         $commentEdit = Comments::with('Users', 'Ressources', 'Ressources.Users')->find($id_com);
 
@@ -161,10 +225,20 @@ class RessourcesController extends Controller
         return redirect(route('viewRes', ['id' => $id]));
     }
     //----------------------------------------------------------------------------------
-    public function add_or_delete($id, $add)
+    //Favorite
+    public function viewFavorite()
     {
         $userId = Auth::user();
 
+        $favorites = Favorite::with('Ressources', 'Ressources.Users')->where('users_id', $userId->id)->get();
+
+        return view('favorite', ['favorites' => $favorites]);
+    }
+
+    public function add_or_delete($id, $add, $view)
+    {
+        $userId = Auth::user();
+        //dd( $view);
         //dd($add, $id, $userId->id);
         if ($add < 1) {
             $favorite = Favorite::where([['ressources_id', $id], ['users_id', $userId->id]])->get();
@@ -178,6 +252,14 @@ class RessourcesController extends Controller
             $favorite = Favorite::where([['ressources_id', $id], ['users_id', $userId->id]])->first();
             $favorite->delete();
         }
-        return redirect(route('viewRes', ['id' => $id]));
+
+        if ($view == '1') {        // vue ressource
+            return redirect(route('viewRes', ['id' => $id]));
+        } else if ($view == '2') {    // vue favoris
+            $favorites = Favorite::with('Ressources', 'Ressources.Users')->where('users_id', $userId->id)->get();
+            return view('favorite', ['favorites' => $favorites]);
+        } else {                   // sinon vue accueil
+            return redirect('/');
+        }
     }
 }

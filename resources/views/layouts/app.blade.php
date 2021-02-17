@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 
 <head>
     <meta charset="utf-8">
@@ -18,23 +18,29 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('css/messagerie.css') }}" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 
 </head>
 
-<body>
+<body class="position-relative" style="min-height: 100%;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    (Re)sources Relationnelles
+                    (Re)ssources Relationnelles
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -48,145 +54,127 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Statistiques</a>
+                                <a class="dropdown-item" href="{{ Route('stat.statGlobal') }}">Statistiques</a>
                                 <a class="dropdown-item" href="{{ Route('users.home') }}">Gestion des utilisateurs</a>
+                                <div class="dropdown-menu">
+                                </div>
+                                @endif
+                                @endauth
                     </ul>
-                </div>
-                @endif
-                @endauth
-                </ul>
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
-                    <!-- Authentication Links -->
-                    @guest
-                    @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @endif
-
-                    @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                    @endif
-                    @else
-                    <div class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Auth::user()->username }}
-                        </a>
-
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ Route('profile') }}">Profil</a>
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto" style="padding-left: .6em;">
+                        <li class="nav-item mr-3 my-auto">
+                            <form action="{{ Route('search') }}">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" id="query" name="query" placeholder="Rechercher..." />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-info btn-sm bi bi-search" type="submit"></button>
+                                    </div>
+                                </div>
                             </form>
-                </ul>
-            </div>
-            @endguest
-            </ul>
-    </div>
-    </div>
-    </nav>
-
-    @if (session('error'))
-    <div class="mx-auto alert alert-danger mb-0">
-        {{ session('error') }}
-    </div>
-    @endif
-
-    @if (session('success'))
-    <div class="mx-auto alert alert-success mb-0">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <!-- Page Header -->
-    <div class="w-100 d-flex justify-content-center bg-light border-bottom">
-        <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
-    </div>
-
-    <main class="py-4">
-        @yield('content')
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start">
-        <!-- Grid container -->
-        <div class="container p-4">
-            <!--Grid row-->
-            <div class="row">
-                <!--Grid column-->
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Footer Content</h5>
-
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-                        voluptatem veniam, est atque cumque eum delectus sint!
-                    </p>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <a href="#!" class="text-dark">Link 1</a>
                         </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 2</a>
+                        <!-- Authentication Links -->
+                        @guest
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                         </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 3</a>
+                        @endif
+
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                         </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 4</a>
-                        </li>
+                        @endif
+                        @else
+                        <div class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ Auth::user()->username }}
+                            </a>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ Route('profile') }}">Mon compte</a>
+                                <a class="dropdown-item" href="{{ Route('messagerie') }}">Messagerie</a>
+                                <a class="dropdown-item" href="{{ Route('favorite.viewFavorite') }}">Mes favoris</a>
+
+
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                    {{ __('Déconnexion') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                        @endguest
                     </ul>
                 </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase mb-0">Links</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!" class="text-dark">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 4</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Grid column-->
             </div>
-            <!--Grid row-->
-        </div>
-        <!-- Grid container -->
+        </nav>
 
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2021 Copyright:
-            <a class="text-dark" href="">FRANCE.GOUV</a>
+        @if (session('error'))
+        <div class="mx-auto alert alert-danger mb-0">
+            {{ session('error') }}
         </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+        @endif
+
+        @if (session('success'))
+        <div class="mx-auto alert alert-success mb-0">
+            {{ session('success') }}
+        </div>
+        @endif
+
+        <!-- Page Header -->
+        <div class="w-100 d-flex justify-content-center bg-light border-bottom">
+            <img src="{{ asset('img/msa.png') }}" onclick="location.href='{{ asset('img/msa.png') }}'" height="350px" alt="Error">
+        </div>
+
+        <main class="py-4">
+            @yield('content')
+        </main>
+        <hr>
+        <footer class="bg-light text-center text-lg-start w-100 " style="bottom: 0;">
+            <div class="container p-3" style="margin-bottom: 40px;">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Droits de reproduction</h5>
+                        <p>
+                            Les contenus du site à l’exception des marques et logos et des contenus
+                            grevés de droits de propriété intellectuelle de tiers ou contenant des données à caractère personnel,
+                            sont des informations publiques librement et gratuitement réutilisables dans les conditions fixées
+                            par la loi n°78-753 du 17 juillet 1978, formalisées dans les conditions générales de réutilisation
+                            des informations publiques ou dans le respect des conditions générales de réutilisation des
+                            informations publiques.
+                        </p>
+                    </div>
+                    <div class="col-lg-1 col-md-6 mb-4 mb-md-0"> </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-0">plus d'informations</h5>
+
+                        <ul class="list-unstyled">
+                            <hr>
+                            <li>
+                                <a href="{{ route('help') }}" class="text-dark">Besoin d'aide?</a>
+                            </li>
+                            <hr>
+                            <li>
+                                <a href="{{ route('contact') }}" class="text-dark">Nous contacter</a>
+                            </li>
+                            <hr>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="text-center p-2 position-fixed w-100 bg-secondary text-white" style="bottom:0;height:40px;">
+                © 2021 Copyright :
+                <a class="text-white" href="">FRANCE.GOUV</a>
+            </div>
+        </footer>
+
     </div>
 
     <!-- Scripts -->

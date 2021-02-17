@@ -10,3 +10,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.idea/workspace.xml
+resources/views/layouts/app.blade.php
+public/uploads

@@ -2,7 +2,9 @@
 
 @section('content')
 
-<div class="container col-10">
+<div class="container col-10 mt-5 mb-5">
+
+    <h1 class="text-center text-uppercase mb-5">Gestion des utilisateurs</h1>
     
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">

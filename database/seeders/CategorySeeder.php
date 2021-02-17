@@ -14,9 +14,10 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('Category')->delete();
+        DB::table('category')->delete();
 
         $category = [
+            ['name' => 'Catégorie non renseignée'],
             ['name' => 'Art'],
             ['name' => 'Climat'],
             ['name' => 'Communiqué'],
@@ -33,6 +34,6 @@ class CategorySeeder extends Seeder
             ['name' => 'Société'],
             ['name' => 'Transport'],
         ];
-        DB::table('Category')->insert($category);
+        DB::table('category')->insert($category);
     }
 }

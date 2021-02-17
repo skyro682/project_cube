@@ -9,11 +9,9 @@
         @auth
         <!-- add favorite-->
         <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6 text-center">
-                <i class="text-center  {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> 
-                    <a style="padding-top: 20" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris)]) }}">{{(count($favoris) > 0) ? 'Suprimer des favoris' : 'Ajouter au favoris' }}</a>    
-                </i>
+            <div class="col d-flex justify-content-center">
+                <i class="mr-2 {{(count($favoris) > 0) ? 'text-warning bi bi-star-fill' : 'bi bi-star' }}"> </i>
+                <a class="mt-1 {{(count($favoris) > 0) ? 'text-danger' : 'text-secondary' }}" href="{{ route('favorite.add_or_delete', ['id' => $ressource->id, 'add' => count($favoris), 'view' => '1']) }}">{{(count($favoris) > 0) ? 'Supprimer des favoris' : 'Ajouter au favoris' }}</a>
             </div>
         </div>
         <br>
@@ -24,23 +22,40 @@
         <h5 class="text-center text-uppercase">{{ $ressource->Zone->name }}</h5>
         <h5 class="text-center text-uppercase">{{ $ressource->Category->name }}</h5>
 
-        <h6 class="text-center text-uppercase">Post de : {{ $ressource->Users->username }}</h6>
-        <h6 class="text-center text-uppercase">écrit le : {{ $ressource->created_at }}</h6>
-        <h6 class="text-center text-uppercase">Mise à jour le : {{ $ressource->updated_at }}</h6>
+        <h6 class="text-center text-uppercase">Post de : {{ $ressource->Users->username ?? 'Utilisateur Supprimer' }}</h6>
+        <h6 class="text-center text-uppercase">écrit le : {{ date('d/m/Y', strtotime($ressource->created_at)) }} à {{ date('h:i:s', strtotime($ressource->created_at)) }}</h6>
+        <h6 class="text-center text-uppercase">Mis à jour le : {{ date('d/m/Y', strtotime($ressource->updated_at)) }} à {{ date('h:i:s', strtotime($ressource->updated_at)) }}</h6>
 
         <!-- Section Content-->
-        <div class="row">
+        <div class="row align-content-center">
             <div class="col-lg-3"></div>
             <div class="col-lg-6 text-center">
                 <p class="lead"> {{ $ressource->content }} </p>
+
+                <!-- Section File-->
+                @if(file_exists($ressource->file_path))
+                    @if($fileIsImage == TRUE)
+                        <h6 class="text-center text-uppercase">Image associée</h6>
+                        <a class="text-center" href="{{asset($ressource->file_path)}}" target="_blank">{{ $fileName }}</a>
+                        <!--
+                        <img class="fit-picture" src="{{ asset($ressource->file_path) }}" alt="image">
+                        -->
+                    @else
+                        <h6 class="text-center text-uppercase">Fichier associé</h6>
+                        <a class="text-center" href="{{asset($ressource->file_path)}}" target="_blank">{{ $fileName }}</a>
+                    @endif
+                @endif
             </div>
         </div>
+        <br>
+
+        <br>
 
         <!-- update or delete Section-->
         <div class="text-center  mt-4">
             @auth
             @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-            <a href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteResModal">supprimer</a>
+            <a class="text-secondary" href="{{ route('ressources.update', ['id' => $ressource->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" data-toggle="modal" data-target="#deleteResModal">supprimer</a>
 
             <div class="modal fade" id="deleteResModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -103,7 +118,7 @@
     <div class="container col-lg-4 bg-comment">
         @if (count($comments) == 0)
         <br>
-        <p>Aucun commentaire</p>
+        <p class="text-muted">Aucun commentaire</p>
         <hr>
         @endif
         @foreach ($comments as $comment)
@@ -111,8 +126,8 @@
         <!-- section 1 Section Heading-->
         <p>{{ $comment->content }} | {{ $comment->created_at }} | {{ $comment->users->username }}</p> <!-- com 1-->
         @auth
-        @if(Auth::user()->id == $ressource->users_id || Auth::user()->grade_id > 1)
-        <a href="{{ route('ressources.viewUpdateComment', ['id' => $ressource->id, 'id_com' => $comment->id]) }}">{{ Auth::user()->id == $ressource->users_id ? 'modifier' : ''}}</a> | <a data-toggle="modal" data-target="#deleteComModal{{$comment->id}}" onclick="">supprimer</a>
+        @if(Auth::user()->id == $comment->users_id || Auth::user()->grade_id > 1)
+        <a class="text-secondary" href="{{ route('ressources.viewUpdateComment', ['id' => $ressource->id, 'id_com' => $comment->id]) }}">{{ Auth::user()->id == $comment->users_id ? 'modifier' : ''}}</a> | <a class="text-danger" style="cursor:  pointer;" data-toggle="modal" data-target="#deleteComModal{{$comment->id}}" onclick="">supprimer</a>
 
         <div class="modal fade" id="deleteComModal{{$comment->id}}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -129,6 +144,19 @@
         @endauth
         <hr>
         @endforeach
+        <!-- Onglet-->
+        <div class="" id="">
+            <div class="col-lg-4"> </div>
+            <div class="container col-lg-4 text-center mt-4">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4 text-center">
+                        {{ $comments->links() }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </section>
 <br>

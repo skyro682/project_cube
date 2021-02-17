@@ -7,7 +7,7 @@ use App\Models\Zone;
 use Illuminate\Http\Request;
 use App\Models\Ressources;
 
-class SearchController extends SearchControllerManager
+class AdvancedSearchController extends SearchControllerManager
 {
     /**
      * Create a new controller instance.
@@ -26,6 +26,8 @@ class SearchController extends SearchControllerManager
      */
     public function searchRes()
     {
+        $categories = (new Category)->get();
+        $regions = (new Zone)->get();
         $query = '';
         if(isset($_GET['query']))
         {
@@ -54,8 +56,20 @@ class SearchController extends SearchControllerManager
 
         $tableResults = $this->queryMake($query, $contentQuery, $category, $region, $order);
 
-        return view('search',[
+        $ordersList = array();
+
+        array_push($ordersList, ['id' => 0, 'name' => "Derniers créés d'abord"]);
+        array_push($ordersList, ['id' => 1, 'name' => "Premiers créés d'abord"]);
+        array_push($ordersList, ['id' => 2, 'name' => "Premiers modifiés d'abord"]);
+        array_push($ordersList, ['id' => 3, 'name' => "Derniers modifiés d'abord"]);
+        array_push($ordersList, ['id' => 4, 'name' => "Les plus vus d'abord"]);
+        array_push($ordersList, ['id' => 5, 'name' => "Les moins vus d'abord"]);
+
+        return view('advancedSearch',[
             'searchResults' => $tableResults,
+            'categoriesList' => $categories,
+            'regionsList' => $regions,
+            'ordersList' => $ordersList,
         ]);
     }
 }
