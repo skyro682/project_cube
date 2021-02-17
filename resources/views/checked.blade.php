@@ -2,91 +2,37 @@
 
 @section('content')
 
-
 <div class="container text-center">
-  <br><br>
-  <h1 class="text-center text-success text-uppercase text-dark animateuse"> Quizz</h1>
-  <br><br><br><br>
+
+  <h1 class="text-center text-success text-uppercase text-dark animateuse mb-5"> Quizz</h1>
+  
   <table class="table text-center table-bordered table-hover">
-    <tr>
-      <th colspan="2" class="bg-dark">
-        <h1 class="text-white"> Résultat </h1>
-      </th>
-    </tr>
-    <tr>
-      <td>
-        Questions tentées
-      </td>
 
-      <?php
-      $counter = 0;
-      $Resultans = 0;
-      if (isset($_POST['submit'])) {
-        if (!empty($_POST['quizcheck'])) {
-          // Counting number of checked checkboxes.
-          $checked_count = count($_POST['quizcheck']);
-          // print_r($_POST);
-      ?>
+    <thead class="thead-dark">
+      <tr>
 
-          <td>
-            <?php
-            echo "Vous avez répondu à " . $checked_count . " questions."; ?>
-          </td>
+        <th colspan="2" scope="col">
+          <h4>Résultat</h4>
+        </th>
 
+      </tr>
+    </thead>
 
-          <?php
-          // Loop to store and display values of individual checked checkbox.
-          $selected = $_POST['quizcheck'];
-          //  dump($selected);
+    <tbody>
 
-          $i = 1;
+      <tr>
+        <td>Questions tentées</td>
+        <td>Vous avez répondu à {{ $answerNb }} questions.</td>
+      </tr>
 
-          foreach ($questions as $question) {
-            // print_r($rows);
-            $flag = $question->ReponseID == $selected[$i];
+      <tr>
+        <td>Total score</td>
+        <td colspan="2">Votre score est de {{ $Resultans }}.</td>
+      </tr>
 
-            if ($flag) {
-              //  echo "La bonne réponse était " . $question->ReponseID . "<br>";
-
-              $counter++;
-              $Resultans++;
-              //   echo "Well Done! your " . $counter . " answer is correct <br><br>";
-            } else {
-              $counter++;
-              //  echo "Sorry! your " . $counter . " answer is innncorrect <br><br>";
-            }
-            $i++;
-          }
-
-          ?>
-
-
-
-    <tr>
-      <td>
-        Total score
-      </td>
-      <td colspan="2">
-    <?php
-          echo " Votre score est de " . $Resultans . ".";
-        } else {
-          echo "<b>Please Select Atleast One Option.</b>";
-        }
-      }
-
-    ?>
-
-
-
-      </td>
-    </tr>
-
-
-
+    </tbody>
   </table>
 
-
 </div>
-
 
 @endsection

@@ -33,14 +33,24 @@ class GameController extends Controller
      */
     public function game()
     {
-        $data['questions']=Question::with('reponse')->get();       
-        return view('game',$data);
+        $data['questions'] = Question::with('reponse')->get();   
+        return view('game', $data);
     }
 
     public function checked()
     {
-        $data['questions']=Question::with('reponse')->get();        
-        return view('checked',$data);
+        $questions = Question::with('reponse')->get();
+        $reponse = $_POST['quizcheck'];
+        $correctAns = 0;
+        
+        foreach($questions as $i => $question){
+            if($question->ReponseID == $reponse[$i + 1]) $correctAns++;
+        }
+
+        $data['Resultans'] = $correctAns;
+        $data['answerNb'] = count($_POST['quizcheck']);
+
+        return view('checked', $data);
     }
 
 }
