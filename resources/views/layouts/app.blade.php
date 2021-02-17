@@ -38,7 +38,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="">Jeux</a>
+                            <a class="nav-link" href="{{route('game')}}">Jeux</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('ressources.add')}}">Ajouter une ressource</a> <!-- si connecté -->

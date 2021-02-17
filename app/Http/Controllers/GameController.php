@@ -6,6 +6,8 @@ use App\Models\Ressources;
 use App\Models\Comments;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\Question;
+use App\Models\Reponse;
 use App\Models\User;
 use App\Models\Zone;
 
@@ -31,12 +33,14 @@ class GameController extends Controller
      */
     public function game()
     {
-        return view('game');
+        $data['questions']=Question::with('reponse')->get();       
+        return view('game',$data);
     }
 
     public function checked()
     {
-        return view('checked');
+        $data['questions']=Question::with('reponse')->get();        
+        return view('checked',$data);
     }
 
 }
